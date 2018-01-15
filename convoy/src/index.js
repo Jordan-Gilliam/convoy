@@ -5,7 +5,7 @@ import { firebaseApp } from './firebase';
 
 import App from './components/App';
 import SignIn from './components/SignIn';
-import Signup from './components/SignUp';
+import SignUp from './components/SignUp';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -16,7 +16,6 @@ firebaseApp.auth().onAuthStateChanged(user => {
         console.log('user has signed out or still needs to sign in.');
     }
 });
-
 
 
 ReactDOM.render(
