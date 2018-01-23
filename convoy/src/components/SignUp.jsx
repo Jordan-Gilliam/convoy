@@ -20,7 +20,7 @@ class SignUp extends Component {
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .catch(error => {
                 console.log('error', error);
-                this.setState({error})
+                this.setState({error});
             });
     }
     

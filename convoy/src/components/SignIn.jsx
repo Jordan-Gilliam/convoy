@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { firebaseApp } from '../firebase';
 import { Link } from 'react-router';
+import { firebaseApp } from '../firebase';
 
 class SignIn extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class SignIn extends Component {
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .catch(error => {
                 console.log('error', error);
-                this.setState({error})
+                this.setState({error});
             });
     }
     
