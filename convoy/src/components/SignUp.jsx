@@ -6,6 +6,7 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: '',
             email: '',
             password: '',
             error: {
@@ -27,8 +28,15 @@ class SignUp extends Component {
     render() {
         return (
         <div className="form-inline" style={{margin: '5%'}}>
-            <h2>SignUp</h2>
+            <h2>Sign Up</h2>
             <div className="form-group">
+                <input 
+                    className="form-control"
+                    type="text"
+                    style={{marginRight: '5px'}}
+                    placeholder="username"
+                    onChange={event => this.setState({username: event.target.value})}
+                />
                 <input
                     className="form-control"
                     type="text"
@@ -52,7 +60,7 @@ class SignUp extends Component {
                 </button>
             </div>
             <div>{this.state.error.message}</div>
-            <div><Link to={'./signin'}>Already a user? Sign in instead</Link></div>
+            <div><Link to={'/signin'}>Already a user? Sign in instead</Link></div>
         </div>
      );
     }
