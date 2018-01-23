@@ -8,7 +8,7 @@ import { firebaseApp } from './firebase';
 import { logUser } from './actions';
 import reducer from './reducers';
 
-// import App from './components/App';
+import App from './components/App';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import './index.css';
