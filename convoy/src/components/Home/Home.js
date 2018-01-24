@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
+
 class Home extends Component {
-
-
   render() {
     return (
       <div>
@@ -40,8 +39,8 @@ class Home extends Component {
           
           <div className='row'>
             <div className='col s6 offset-s3'>
-              <a class="waves-effect waves-light btn">Login</a>
-              <a class="waves-effect waves-light btn">Sign Up</a>
+              <a className="waves-effect waves-light btn">Login</a>
+              <a className="waves-effect waves-light btn">Sign Up</a>
             </div>
           </div>
           

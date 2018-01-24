@@ -1,0 +1,35 @@
+[   
+    {
+        "Test1": {
+            "name": "convoy1",
+            "users": {
+                "user": {
+                    "email": "gregory.jimr@gmail.com",
+                    "name": "Jim"
+                },
+                "user2": {
+                    "email": "gilliam.te@gmail.com",
+                    "name": "Jordan"
+                },
+                "user3": {
+                    "email": "isa.oambrosio@gmail.com",
+                    "name": "Isabella"
+                }
+            }
+        },
+        
+        "Test2": {
+            "name": "Fun Convoy",
+            "users": {
+                "user": {
+                    "email": "morgan@gmail.com",
+                    "name": "Morgan"
+                },
+                "user2": {
+                    "email": "isa.oambrosio@gmail.com",
+                    "name": "Isabella"
+                }
+            }
+        }
+    }    
+]

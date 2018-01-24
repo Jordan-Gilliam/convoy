@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { firebaseApp } from '../firebase';
 
 class SignIn extends Component {
@@ -18,6 +18,7 @@ class SignIn extends Component {
         console.log('this.state', this.state);
         const { email, password } = this.state;
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
+            .then(() => browserHistory.push('/convoys'))
             .catch(error => {
                 console.log('error', error);
                 this.setState({error});
