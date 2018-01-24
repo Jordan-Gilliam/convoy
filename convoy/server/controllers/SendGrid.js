@@ -2,7 +2,6 @@ import React from "react";
 
 // set environment variables 
 // needs to be set in proper file (shell)
-echo "export SENDGRID_API_KEY='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'" > sendgrid.env
 echo "sendgrid.env" >> .gitignore
 source ./sendgrid.env
 
