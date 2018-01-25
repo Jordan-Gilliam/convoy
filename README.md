@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/public/assets/images/" width="350"/>
+  <img src="/convoy/public/convoy.png" width="350"/>
 </p>
 
 # convoy
