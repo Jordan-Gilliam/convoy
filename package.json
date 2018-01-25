@@ -1,0 +1,8 @@
+{
+  "name": "yarn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Jordan-Gilliam/convoy.git",
+  "author": "Jim Gregory <gregory.jimr@gmail.com>",
+  "license": "MIT"
+}
