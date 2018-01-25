@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { render } from 'react-dom';
-import transport from '../../public/assets/images/travel.png';
+// import transport from '../../public/assets/images/travel.png';
 import users from './users.json';
-import firebaseSearch from './firebaseSearch';
+// import firebaseSearch from './firebaseSearch';
 
 //...
 const user = {name: "You", lat: 37.779519, lng: -122.405640}
@@ -25,7 +25,7 @@ export class MapContainer extends React.Component {
             title={'You'}
             name={'Your position'}
             position={{lat: user.lat, lng: user.lng}}
-            icon={{transport}}
+            // icon={{transport}}
             />
             
         {this.state.users.map(user => (
