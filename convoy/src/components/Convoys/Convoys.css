@@ -2,3 +2,33 @@
     margin: 5px auto;
     width: 100%;
 }
+
+body {
+    background-image: none;
+    background-repeat: no-repeat;
+    
+}
+
+nav .brand-logo{
+    font-size: 1.8rem;
+    font-family: Shrikhand;
+
+}
+
+.row {
+    margin-top: 20px;
+    
+}
+
+.collection .collection-item {
+    padding: 20px 60px;
+    font-size: 18px;
+}
+
+.collection {
+    margin-top: 30px;
+}
+
+nav {
+    color: red;
+}

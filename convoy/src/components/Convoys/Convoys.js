@@ -23,17 +23,19 @@ class Convoys extends Component {
                 convoyName: data.name,
             };
         });
-        console.log(convoydata);
-        this.setState({convoydata});
-        
+        // console.log(convoydata);
+        this.setState({dummydata : convoydata});
+        console.log('convoy name: ' + JSON.stringify(convoydata));
     }
     
 
 
     render() {
+        var dummydata = this.state.dummydata;
+        console.log(dummydata);
+        
         return (
             <div>
-          
                 <nav>
                     <div className="nav-wrapper">
                         <a href="#" className="brand-logo center">My Convoys</a>
@@ -45,38 +47,38 @@ class Convoys extends Component {
                     </div>
                 </nav>
                 
+                <ul className='collection'>
+    
+                    {dummydata.map((data) => {
+                        return (
+                                <Link to={{pathname: '/map'}}>
+                                    <li className='collection-item'>
+                                        {data.convoyName}
+                                    </li>
+                                    <div className='divider'></div>
+                                </Link>
+                        );
+                    })}
+                
+                </ul>
                 <div className='container'>
             
                     <div className='row'>
-                        <div className='col s10 offset-s1'>
+                        <div className='col s12'>
                             
-                            <ul className="collection">
+                            {/*<ul className="collection">
                               <li className="collection-item">
-                              <Link to={{pathname: '/map'}}>
-                                            convoy I
-                                        </Link>
+                              <Link to={{pathname: '/map'}}>Convoy I</Link>
                               </li>
-                            </ul>
-                            
-                            {/*{this.state.convoydata.map((data) => {
-                                return (
-                                    <ul className='collection'>
-                                        <Link to={{pathname: '/map'}}>
-                                            <li className='collection-item'>
-                                                {data}    
-       
-                                            </li>
-                                        </Link>
-                                    </ul>
-                                )
-                            })}*/}
-                            
+                            </ul>*/}
+              
+
                         </div>
                     </div>  
                   
                     <div className='row'>
                         <div className='col s8 offset-s2'>
-                            <button data-target="modal1" className="btn modal-trigger">New Convoy</button>
+                            <button data-target="modal1" className="btn modal-trigger red">New Convoy</button>
                           
                             <div id="modal1" className="modal">
                                 <div className="modal-content">

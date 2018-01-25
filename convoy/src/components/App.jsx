@@ -6,38 +6,38 @@ import { BrowserRouter as Router,
          Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 // import { logUser } from '../actions';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+// import SignIn from './SignIn';
+// import SignUp from './SignUp';
 import Convoys from './Convoys/Convoys';
 import Map from './Map/Map';
 import Home from './Home/Home';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => {
-    return rest.user ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/signin',
-        state: { from: props.location }
-      }} />
-    );
-  }} />
-);
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={props => {
+//     return rest.user ? (
+//       <Component {...props}/>
+//     ) : (
+//       <Redirect to={{
+//         pathname: '/signin',
+//         state: { from: props.location }
+//       }} />
+//     );
+//   }} />
+// );
 
 class App extends Component {
-  state = {
-    user: null
-  };
+  // state = {
+  //   user: null
+  // };
   
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
     
-    firebaseApp.auth().onAuthStateChanged(user => {
-      console.log('user has signed in or up', user);
-      this.setState({ user });
-    });
-  }
+  //   firebaseApp.auth().onAuthStateChanged(user => {
+  //     console.log('user has signed in or up', user);
+  //     this.setState({ user });
+  //   });
+  // }
 
   // componentDidUpdate(prevProps, prevState) {
   //   if (this.state.user && !prevState.user) {
@@ -45,21 +45,23 @@ class App extends Component {
   //   }
   // }
   
-  signOut() {
-    firebaseApp.auth().signOut();
-    // this.props.history.push('/signin');
-    // return <p>Logged out!</p>;
-  }
+  // signOut() {
+  //   firebaseApp.auth().signOut();
+  //   // this.props.history.push('/signin');
+  //   // return <p>Logged out!</p>;
+  // }
 
   render() {
     return (
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/signin' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/signout' render={() => this.signOut()} />
-          <PrivateRoute path='/convoys' component={Convoys} user={this.state.user} />
-          <PrivateRoute path='/map' component={Map} user={this.state.user} />
+          {/*<Route path='/signin' component={SignIn} />*/}
+          {/*<Route path='/signup' component={SignUp} />*/}
+          {/*<Route path='/signout' render={() => this.signOut()} />*/}
+          {/*<PrivateRoute path='/convoys' component={Convoys} user={this.state.user} />*/}
+          {/*<PrivateRoute path='/map/:id' component={Map} user={this.state.user} />*/}
+          <Route path='/convoys' component={Convoys} />
+          <Route path='/map/' component={Map} />
           <Route render={() => <p>Not Found</p>} />
         </Switch>
     );
