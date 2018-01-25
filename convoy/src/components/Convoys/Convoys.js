@@ -3,7 +3,6 @@ import './Convoys.css';
 import dummydata from "./dummydata.json";
 var Link = require('react-router-dom').Link;
 
-
 var NavLink = require('react-router-dom').NavLink;
 
 
@@ -11,9 +10,25 @@ class Convoys extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dummydata,
+            dummydata: [],
         };
     }
+    
+    componentDidMount() {
+        
+        var convoydata = dummydata.map((data) => {
+            console.log(data);
+            
+            return {
+                convoyName: data.name,
+            };
+        });
+        console.log(convoydata);
+        this.setState({convoydata});
+        
+    }
+    
+
 
     render() {
         return (
@@ -24,7 +39,7 @@ class Convoys extends Component {
                         <a href="#" className="brand-logo center">My Convoys</a>
                         <ul id="nav-mobile" className="right">
                             <li>
-                                <NavLink to='/'>Sign Out</NavLink>
+                                <NavLink to='/signout'>Sign Out</NavLink>
                             </li>              
                         </ul>
                     </div>
@@ -36,21 +51,26 @@ class Convoys extends Component {
                         <div className='col s10 offset-s1'>
                             
                             <ul className="collection">
-                              <li className="collection-item"><a>Convoy I</a></li>
+                              <li className="collection-item">
+                              <Link to={{pathname: '/map'}}>
+                                            convoy I
+                                        </Link>
+                              </li>
                             </ul>
-                            {this.state.dummydata.map(data => {
+                            
+                            {/*{this.state.convoydata.map((data) => {
                                 return (
                                     <ul className='collection'>
                                         <Link to={{pathname: '/map'}}>
                                             <li className='collection-item'>
-                                                {data.Test2.name}, 
-                                                {data.Test2.users.user.name}    
+                                                {data}    
        
                                             </li>
                                         </Link>
                                     </ul>
                                 )
-                            })}
+                            })}*/}
+                            
                         </div>
                     </div>  
                   
