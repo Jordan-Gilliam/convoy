@@ -1,39 +1,42 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { render } from 'react-dom';
+import transport from '../../public/assets/images/travel.png'
+import users from './users.json';
 
-const users = [
-    {name: "Jordan", lat: 37.778519, lng: -122.405640},
-    {name: "Jim", lat: 37.779519, lng: -122.405640},
-    {name: "Morgan", lat: 37.777519, lng: -122.405640},
-    {name: "Bella", lat: 37.776519, lng: -122.405640}];
+//...
+const user = {name: "You", lat: 37.779519, lng: -122.405640}
 
+    
 export class MapContainer extends React.Component {
+    state = {
+        users,
+    }
+    
     render() {
     return (
-      <Map google={this.props.google} zoom={14}>
- 
+      <Map google={this.props.google} 
+        zoom={16}
+        className={'map'}
+        style={{width: '80%', height: '80%', margin: '10px 10%'}}
+        initialCenter={{lat: user.lat, lng: user.lng}}>
         <Marker
-            title={users[0].name}
-            name={users[0].name}
-            position={{lat: users[0].lat, lng: users[0].lng}}
+            title={'You'}
+            name={'Your position'}
+            position={{lat: user.lat, lng: user.lng}}
+            icon={{transport}}
+            />
+            
+        {this.state.users.map(user => (
+            <Marker
+            title={user.name}
+            name={user.name}
+            position={{lat: user.lat, lng: user.lng}}
              />
+        ))}
+
+        
              
-        <Marker
-            name={users[1].name}
-            position={{lat: users[1].lat, lng: users[1].lng}}
-             />
-             
-        <Marker
-            name={users[2].name}
-            position={{lat: users[2].lat, lng: users[2].lng}}
-             />
-             
-        <Marker
-            name={users[3].name}
-            position={{lat: users[3].lat, lng: users[3].lng}}
-             />
- 
         <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
                 
