@@ -52,8 +52,8 @@ class Home extends Component {
             
             <div className='row' id='button'>
               <div className='col s8 offset-s2'>
-                <a className="waves-effect waves-light btn red color">Login</a>
-                <a className="waves-effect waves-light btn red color">Sign Up</a>
+                <a className="waves-effect waves-light btn red color" a href= './signin'>Login</a>
+                <a className="waves-effect waves-light btn red color" a href= './signup'>Sign Up</a>
               </div>
             </div>
             
