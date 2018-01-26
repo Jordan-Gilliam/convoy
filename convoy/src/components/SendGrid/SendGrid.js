@@ -14,7 +14,7 @@ import React from "react";
 
 // // SendGrid OPTION 2 - send multiple individual emails to multiple recipients*****************************************************************
 // // only one recipient email will show in the 'to' field
-// const sgMail = require('@sendgrid/mail');
+// const sgMail = require('sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const msg = {
 //   to: [],
@@ -27,7 +27,7 @@ import React from "react";
 
 
 // // SendGrid OPTION 3 - send multiple emails to multiple recipients****************************************************************************
-// const sgMail = require('@sendgrid/mail');
+// const sgMail = require('sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // // send personalized emails to each potential user
