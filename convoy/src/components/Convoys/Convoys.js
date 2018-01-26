@@ -5,7 +5,6 @@ import SENDGRID_API_KEY from "./sendgrid.env";
 var Link = require('react-router-dom').Link;
 
 var NavLink = require('react-router-dom').NavLink;
-// const SENDGRID_API_KEY='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'
 
 class Convoys extends Component {
     constructor(props) {
@@ -38,8 +37,8 @@ class Convoys extends Component {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         
         const msg = {
-          to: ['mbradleystylist@gmail.com'],
-          from: 'weliketocodethings@gmail.com',
+          to: ['email1', 'email2'],
+          from: 'email3',
           subject: '{friend} has invited you to join Convoy!',
           text: 'Hello and welcome to Convoy! Your friend {user} has invited you to join a convoy for your next trip. Click below to accept the invitation and sign up today. Convoy Description.',
           html: '<button>Join the Convoy!</button>',
