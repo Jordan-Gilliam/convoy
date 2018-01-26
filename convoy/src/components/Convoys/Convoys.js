@@ -37,8 +37,8 @@ class Convoys extends Component {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         
         const msg = {
-          to: ['email1', 'email2'],
-          from: 'email3',
+          to: [],
+          from: '',
           subject: '{friend} has invited you to join Convoy!',
           text: 'Hello and welcome to Convoy! Your friend {user} has invited you to join a convoy for your next trip. Click below to accept the invitation and sign up today. Convoy Description.',
           html: '<button>Join the Convoy!</button>',
