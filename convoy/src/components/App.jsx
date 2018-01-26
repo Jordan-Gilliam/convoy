@@ -5,8 +5,8 @@ import { firebaseApp } from '../firebase';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 import Convoys from './Convoys/Convoys';
 import Map from './Map/Map';
 import Home from './Home/Home';
