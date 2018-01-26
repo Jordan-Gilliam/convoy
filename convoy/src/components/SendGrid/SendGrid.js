@@ -50,7 +50,7 @@ import React from "react";
 //       },
 //     },
 //     {
-//       to: 'recipient2@example.org',
+//       to: '',
 //       subject: 'Hello recipient 2',
 //       substitutions: {
 //         name: 'Recipient 2',
