@@ -28,8 +28,6 @@ class Convoys extends Component {
         console.log('convoy name: ' + JSON.stringify(convoydata));
     }
     
-
-
     render() {
         var dummydata = this.state.dummydata;
         console.log(dummydata);
@@ -51,7 +49,7 @@ class Convoys extends Component {
     
                     {dummydata.map((data) => {
                         return (
-                                <Link to={{pathname: '/map'}}>
+                                <Link to={{pathname: '/map'}}  key={data.convoyName}>
                                     <li className='collection-item'>
                                         {data.convoyName}
                                     </li>
@@ -84,12 +82,12 @@ class Convoys extends Component {
                                 <div className="modal-content">
                                     <h4>New Convoy</h4>
                                     <form>
-                                        <input placeholder="Convoy Name" id="convoyName" type="text" class="validate" />
-                                        <input placeholder="email" class="inviteEmail" type="text" class="validate" />
+                                        <input placeholder="Convoy Name" id="convoyName" type="text" className="validate" />
+                                        <input placeholder="email" className="inviteEmail" type="text" className="validate" />
                                     </form>
                                 </div>
                                 <div className="modal-footer">
-                                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Create</a>
                                 </div>
                             </div>
                         </div>
@@ -101,4 +99,3 @@ class Convoys extends Component {
 }
 
 export default Convoys;
-
