@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:Jordan-Gilliam/convoy.git",
-  "author": "Jim Gregory <gregory.jimr@gmail.com>",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "google-maps-react": "^1.1.2",
