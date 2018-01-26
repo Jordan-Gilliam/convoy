@@ -15,8 +15,8 @@ class SignUp extends Component {
         };
     }
     
-    signUp() {
-        console.log('this.state', this.state);
+    signUp = () => {
+        // console.log('this.state', this.state);
         const { email, password } = this.state;
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .catch(error => {
@@ -24,6 +24,7 @@ class SignUp extends Component {
                 this.setState({error});
             });
     }
+
     
     componentDidMount() {
         document.body.className = 'bodyBackground';
