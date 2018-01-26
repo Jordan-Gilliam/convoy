@@ -23,7 +23,7 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 
 ## Authors
 
-See also the list of [contributors](https://github.com/Jordan-Gilliam/airbnbit/settings/collaboration) who participated in this project.
+See also the list of [contributors](https://github.com/Jordan-Gilliam/convoy/graphs/contributors) who participated in this project.
 
 ## License
 
