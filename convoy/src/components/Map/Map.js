@@ -25,9 +25,9 @@ class Map extends Component {
             
                 <MapContainer />
                 
-                <a className="btn-floating btn-large waves-effect waves-light red modal-trigger" id="button"><i class="material-icons">add</i></a>
+                <a className="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal2" id="button"><i class="material-icons">add</i></a>
               
-                <div id="modal1" className="modal bottom-sheet">
+                <div id="modal2" className="modal bottom-sheet">
                     <div className="modal-content">
                         <h4>Modal Header</h4>
                         <p>A bunch of text</p>

@@ -28,8 +28,6 @@ class Convoys extends Component {
         console.log('convoy name: ' + JSON.stringify(convoydata));
     }
     
-
-
     render() {
         var dummydata = this.state.dummydata;
         console.log(dummydata);
