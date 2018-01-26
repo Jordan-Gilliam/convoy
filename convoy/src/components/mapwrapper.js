@@ -19,7 +19,7 @@ export class MapContainer extends React.Component {
       <Map google={this.props.google} 
         zoom={16}
         className={'map'}
-        style={{width: '80%', height: '80%', margin: '10px 10%'}}
+        style={{width: '100%', height: '100%'}}
         initialCenter={{lat: user.lat, lng: user.lng}}>
         <Marker
             title={'You'}

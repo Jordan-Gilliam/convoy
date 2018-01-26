@@ -1,0 +1,13 @@
+.map{
+    max-height: 92%;
+}
+
+#button {
+    position: fixed;
+    top: 88%;
+    left: 5%;
+}
+
+nav {
+    background-color: red;
+}
