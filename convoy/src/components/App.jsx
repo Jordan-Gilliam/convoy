@@ -5,8 +5,8 @@ import { firebaseApp } from '../firebase';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 import Convoys from './Convoys/Convoys';
 import Map from './Map/Map';
 import Home from './Home/Home';
@@ -59,10 +59,9 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path="/signin" render={props => <SignIn user={user} {...props} />} />
-          <Route path='/signup' component={SignUp} />
+          <Route path='/signup' render = {props=> <SignUp user={user} {...props} />} />
           <Route path='/signout' render={() => this.signOut()} />
           <PrivateRoute path='/convoys' component={Convoys} user={user} />
-          {/*<PrivateRoute path='/map/:id' component={Map} user={this.state.user} />*/}
           <PrivateRoute path='/map' component={Map} user={user} />
           {/*<Route path='/convoys' component={Convoys} />*/}
           <Route render={() => <p>Not Found</p>} />
