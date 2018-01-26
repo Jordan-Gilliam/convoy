@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import { firebaseApp } from '../firebase';
-// import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
