@@ -36,7 +36,7 @@ class Convoys extends Component {
     
     sendGrid() {
         console.log(SENDGRID_API_KEY);
-        const sgMail = require('sendgrid/mail');
+        const sgMail = require('@sendgrid/mail');
         // const sg = require("sendgrid")(SENDGRID_API_KEY);
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         
