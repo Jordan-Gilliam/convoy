@@ -17,8 +17,8 @@ import React from "react";
 // const sgMail = require('@sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const msg = {
-//   to: ['recipient1@example.org', 'recipient2@example.org'],
-//   from: 'sender@example.org',
+//   to: [],
+//   from: '',
 //   subject: 'Hello world',
 //   text: 'Hello plain world!',
 //   html: '<p>Hello HTML world!</p>',
@@ -36,7 +36,7 @@ import React from "react";
 // const msg = {
 //   personalizations: [
 //     {
-//       to: 'recipient1@example.org',
+//       to: '',
 //       subject: 'Hello recipient 1',
 //       substitutions: {
 //         name: 'Recipient 1',
@@ -65,7 +65,7 @@ import React from "react";
 //       sendAt: 1500077141,
 //     }
 //   ],
-//   from: 'sender@example.org',
+//   from: '',
 //   text: 'Hello plain world!',
 //   html: '<p>Hello HTML world!</p>',
 // };
