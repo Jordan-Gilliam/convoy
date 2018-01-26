@@ -15,6 +15,7 @@ class Convoys extends Component {
     }
     
     componentDidMount() {
+        var instance = window.M.Modal.init(this.modal);
         
         var convoydata = dummydata.map((data) => {
             console.log(data);
@@ -78,7 +79,7 @@ class Convoys extends Component {
                         <div className='col s8 offset-s2'>
                             <button data-target="modal1" className="btn modal-trigger red">New Convoy</button>
                           
-                            <div id="modal1" className="modal">
+                            <div id="modal1" className="modal" ref={ (modal) => this.modal = modal }>
                                 <div className="modal-content">
                                     <h4>New Convoy</h4>
                                     <form>
