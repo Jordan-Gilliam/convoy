@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
+    "concurrently": "^3.5.1",
     "firebase": "^4.9.0",
     "google-maps-react": "^1.1.2",
     "material-ui": "^1.0.0-beta.30",
@@ -21,5 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
   }
 }
