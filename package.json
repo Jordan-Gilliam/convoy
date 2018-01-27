@@ -16,7 +16,7 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "client": "node src/scripts/start-client.js",
     "server": "node server.js",
     "build": "node src/scripts/build.js",
