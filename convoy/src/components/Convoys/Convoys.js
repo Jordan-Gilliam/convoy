@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './Convoys.css';
 import dummydata from "./dummydata.json";
 import SENDGRID_API_KEY from "./sendgrid.env";
+import icons from './icons.json';
+import Chip from 'material-ui/Chip';
+
 var Link = require('react-router-dom').Link;
 
 var NavLink = require('react-router-dom').NavLink;
@@ -11,15 +14,27 @@ class Convoys extends Component {
         super(props);
         this.state = {
             dummydata: [],
+            email: '',
+            emails: [],
             icon: null,
         };
+        this.handleDelete = this.handleDelete.bind(this);
     }
     
     componentDidMount() {
         var instance = window.M.Modal.init(this.modal);
         
+        console.log(icons);
+        var icon = icons[Math.floor(Math.random()*icons.length)];
+        
+        //  var icon = icons.map((icon) => {
+        //     console.log(icon);
+        // })
+        console.log('icon ' + icon);
+        this.setState({icon});
         // var icon = Math.floor(Math.random() * (1 + Icons.length - 1));
         // console.log(JSON.stringify(icon));
+        
         
         var convoydata = dummydata.map((data) => {
             console.log(data);
@@ -33,8 +48,26 @@ class Convoys extends Component {
         console.log('convoy name: ' + JSON.stringify(convoydata));
     }
     
+    /*handleDelete(data) {
+        console.log('data', data.target);
+        //const { emails } = this.state;
+        const emails = [...this.state.emails];
+        const emailToDelete = emails.indexOf(data);
+        emails.splice(emailToDelete, 1);
+        this.setState({ emails });
+    }*/
+    
+    handleDelete = data => () => {
+        const emails = [...this.state.emails];
+        const emailToDelete = emails.indexOf(data);
+        emails.splice(emailToDelete, 1);
+        this.setState({ emails });
+      };
     
     sendGrid() {
+        const { emails } = this.state;
+        
+        
         console.log(SENDGRID_API_KEY);
         const sgMail = require('@sendgrid/mail');
         // const sg = require("sendgrid")(SENDGRID_API_KEY);
@@ -95,7 +128,8 @@ class Convoys extends Component {
                         return (
                                 <Link to={{pathname: '/map'}}  key={data.convoyName}>
                                     <li className='collection-item avatar'>
-                                        <img src="https://images.vexels.com/media/users/3/128427/isolated/preview/f7c407a39ce5080511410aa6bce5f32d-pink-circle-retro-car-by-vexels.png" alt="" class="circle"/>
+                                        {/*<img src={this.state.icon} alt="" class="circle"/>*/}
+                                        <img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>
                                         <span class="title">
                                             {data.convoyName}
                                         </span>
@@ -137,8 +171,37 @@ class Convoys extends Component {
                                 <div className="modal-content">
                                     <h4>New Convoy</h4>
                                     <form>
-                                        <input placeholder="Convoy Name" id="convoyName" type="text" className="validate" />
-                                        <input placeholder="email" className="inviteEmail" type="text" className="validate" />
+                                        <input placeholder="Convoy Name" id="convoyName" className="validate" />
+                                        <input
+                                            placeholder="email"
+                                            className="inviteEmail validate"
+                                            value={this.state.email}
+                                            onKeyPress={(e) => {
+                                               //console.log('e', e.key); 
+                                               this.setState({ email: this.state.email + e.key });
+                                               if (e.key === 'Enter') {
+                                                   let { emails } = this.state;
+                                                   emails.push({
+                                                       id: emails.length,
+                                                       label: this.state.email,
+                                                   });
+                                                   this.setState({ emails, email: '' });
+                                               }
+                                            }}
+                                        />
+                                        {
+                                            this.state.emails.map(data => {
+
+                                              return (
+                                                <Chip
+                                                  key={data.id}
+                                                  label={data.label}
+                                                  onDelete={this.handleDelete(data)}
+                                                  //className={classes.chip}
+                                                />
+                                              );
+                                            })
+                                        }
                                     </form>
                                 </div>
                                 <div className="modal-footer">

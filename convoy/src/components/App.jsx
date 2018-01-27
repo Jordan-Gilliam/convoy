@@ -49,7 +49,7 @@ class App extends Component {
     const { isLoading, user } = this.state;
     
     if (isLoading) {
-      return <div className="spinner">Loading...</div>;
+      return <div class="progress"><div class="indeterminate"></div></div>;
     }
     
     return (
