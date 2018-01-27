@@ -7,8 +7,11 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "client": "node src/scripts/start-client.js",
     "server": "node server.js",
-  },
+    "build": "node src/scripts/build.js",
+    "installDeps": "yarn && cd client && yarn"
+  }
   "dependencies": {
     "body-parser": "^1.18.2",
     "create-react-app": "^1.5.1",
@@ -19,5 +22,5 @@
   "devDependencies": {
     "concurrently": "^3.5.0",
     "nodemon": "^1.11.0"
-  }
+  },
 }
