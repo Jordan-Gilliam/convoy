@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import { firebaseApp } from '../firebase';
-// import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
@@ -51,7 +49,7 @@ class App extends Component {
     const { isLoading, user } = this.state;
     
     if (isLoading) {
-      return <div className="spinner">Loading...</div>;
+      return <div class="progress"><div class="indeterminate"></div></div>;
     }
     
     return (
