@@ -1,0 +1,32 @@
+[
+    {
+        "name": "convoy1",
+        "users": [
+            {
+                "email": "gregory.jimr@gmail.com",
+                "name": "Jim"
+            },
+            {
+                "email": "gilliam.te@gmail.com",
+                "name": "Jordan"
+            },
+            {
+                "email": "isa.oambrosio@gmail.com",
+                "name": "Isabella"
+            }
+        ]
+    },
+    {
+        "name": "Fun Convoy",
+        "users": {
+            "user": {
+                "email": "morgan@gmail.com",
+                "name": "Morgan"
+            },
+            "user2": {
+                "email": "isa.oambrosio@gmail.com",
+                "name": "Isabella"
+            }
+        }
+    }
+]
