@@ -13,6 +13,7 @@
     "installDeps": "yarn && cd client && yarn"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
     "create-react-app": "^1.5.1",
