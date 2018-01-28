@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "client": "node src/scripts/start-client.js",
+    "client": "node convoy/src/scripts/start-client.js",
     "server": "node server.js",
-    "build": "node src/scripts/build.js",
+    "build": "node convoy/src/scripts/build.js",
     "installDeps": "yarn && cd client && yarn"
   },
   "dependencies": {
