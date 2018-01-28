@@ -64,7 +64,7 @@ class Convoys extends Component {
       };
     
     sendGrid() {
-        const SENDGRID_API_KEY = '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';
+       
         console.log('sending!');
         const { emails } = this.state;
         console.log({emails});
@@ -72,7 +72,7 @@ class Convoys extends Component {
         
         const sgMail = require('@sendgrid/mail');
         // const sg = require("sendgrid")(SENDGRID_API_KEY);
-        sgMail.setApiKey(SENDGRID_API_KEY);
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         
         const msg = {
           to: ['gilliamja.te@gmail.com', 'isa.oambrosio@gmail.com', 'gregory.jimr@gmail.com', 'mbradleystylist@gmail.com'],
