@@ -111,20 +111,18 @@ class Convoys extends Component {
         // // A convoy entry.
         const convoyData = {
             name: this.state.convoyName,
-
-            members: this.state.emails,
+            uid: this.props.user.uid
         };
-        
-        console.log(convoyData.uid);
-        console.log(convoyData);
-
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
-        updates['/convoys/' + newConvoyKey] = convoyData;
-
-        updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
+        //add the convoy's name to the convoy
+        updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
+        //add the current user UID to the members object
+        updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+        //add the convoykey to the current user's profile
+        updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
     
         
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
