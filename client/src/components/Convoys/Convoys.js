@@ -153,7 +153,7 @@ class Convoys extends Component {
                                 <Link to={{pathname: '/map'}}  key={data.convoyName}>
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
-                                            console.log('icon: ' +  oneIcon);
+                                            // console.log('icon: ' +  oneIcon);
                                             return (
                                                 <img src={oneIcon} alt='car avatar' className='circle'/>
                                             );
