@@ -25,8 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 class App extends Component {
   state = {
     isLoading: true,
-    user: null,
-    profileId: null
+    user: null
   };
   
   constructor(props) {
