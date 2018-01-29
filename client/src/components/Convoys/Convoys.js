@@ -20,7 +20,7 @@ class Convoys extends Component {
             dummydata: [],
             email: '',
             emails: [],
-            icon: null,
+            icons: null,
             convoyName: '',
             newEmails: [],
             username: '',
@@ -33,13 +33,13 @@ class Convoys extends Component {
     
     componentDidMount() {
         var instance = window.M.Modal.init(this.modal);
-        var icon = icons[Math.floor(Math.random()*icons.length)];
+        // var icon = icons[Math.floor(Math.random()*icons.length)];
         
-        //  var icon = icons.map((icon) => {
-        //     console.log(icon);
-        // })
-        console.log('icon ' + icon);
-        this.setState({icon});
+      
+            this.setState({icons});
+    
+        // console.log('icon ' + icon);
+        // this.setState({icon});
         // var icon = Math.floor(Math.random() * (1 + Icons.length - 1));
         // console.log(JSON.stringify(icon));
         
@@ -152,8 +152,13 @@ class Convoys extends Component {
                         return (
                                 <Link to={{pathname: '/map'}}  key={data.convoyName}>
                                     <li className='collection-item avatar'>
-                                        {/*<img src={this.state.icon} alt="" class="circle"/>*/}
-                                        <img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>
+                                        {this.state.icons.map((oneIcon) => {
+                                            console.log('icon: ' +  oneIcon);
+                                            return (
+                                                <img src={oneIcon} alt='car avatar' className='circle'/>
+                                            );
+                                        })}
+                                        {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
                                         <span class="title">
                                             {data.convoyName}
                                         </span>
