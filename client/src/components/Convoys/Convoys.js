@@ -3,7 +3,7 @@ import './Convoys.css';
 import dummydata from "./dummydata.json";
 import icons from './icons.json';
 import API from "../../utils/API";
-import { db } from '../../firebase';
+import { firebaseApp, db } from '../../firebase';
 import firebase from 'firebase';
 import SignUp from "../SignUp/SignUp";
 import Chip from 'material-ui/Chip';
@@ -32,6 +32,7 @@ class Convoys extends Component {
     }
     
     componentDidMount() {
+        console.log("props: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
         var icon = icons[Math.floor(Math.random()*icons.length)];
         
@@ -109,19 +110,20 @@ class Convoys extends Component {
         
         // // A convoy entry.
         const convoyData = {
-            uid: this.state.username,
             name: this.state.convoyName,
+
             members: this.state.emails,
         };
         
         console.log(convoyData.uid);
         console.log(convoyData);
+
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
-    
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
         updates['/convoys/' + newConvoyKey] = convoyData;
+
         updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
     
         
