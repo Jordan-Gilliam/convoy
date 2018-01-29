@@ -7,7 +7,7 @@ export default {
   },
   
   postEmail: function(data) {
-      return axios.post("api/emails", data);
+      return axios.post("/api/emails", data);
   }
 };
 
