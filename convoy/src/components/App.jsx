@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebaseApp } from '../firebase';
+import { firebaseApp, db } from '../firebase';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
@@ -25,16 +25,23 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 class App extends Component {
   state = {
     isLoading: true,
-    user: null
+    user: null,
+    profileId: null
   };
   
   constructor(props) {
     super(props);
     
-    firebaseApp.auth().onAuthStateChanged(user => {
-      console.log('user has signed in or up', user);
-      this.setState({ user, isLoading: false });
+  firebaseApp.auth().onAuthStateChanged(user => {
+    this.setState({ user, isLoading: false });
+    if (!user) return; // done if user logged out
+  
+    const profileRef = db.ref(`/profiles/${user.uid}`);
+    profileRef.once("value", snapshot => {
+      const isNewUser = (snapshot.val() !== null);
+      this.setState({ isNewUser }); // detect this in render() and <Redirect to='/profile' /> to edit profile page    
     });
+  });
   }
 
   signOut() {
@@ -49,7 +56,7 @@ class App extends Component {
     const { isLoading, user } = this.state;
     
     if (isLoading) {
-      return <div className="progress"><div className="indeterminate"></div></div>;
+      return <div class="progress"><div class="indeterminate"></div></div>;
     }
     
     return (
