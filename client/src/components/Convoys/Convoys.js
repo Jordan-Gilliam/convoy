@@ -16,6 +16,7 @@ class Convoys extends Component {
             email: '',
             emails: [],
             icon: null,
+            convoyName: '',
         };
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -115,7 +116,7 @@ class Convoys extends Component {
             <div>
                 <nav>
                     <div className="nav-wrapper">
-                        <a href="#" className="brand-logo center">My Convoys</a>
+                        <div href="#" className="brand-logo center">My Convoys</div>
                         <ul id="nav-mobile" className="right">
                             <li>
                                 <NavLink to='/signout'>Sign Out</NavLink>
@@ -173,21 +174,41 @@ class Convoys extends Component {
                                 <div className="modal-content">
                                     <h4>New Convoy</h4>
                                     <form>
-                                        <input placeholder="Convoy Name" id="convoyName" className="validate" />
+                                        <input 
+                                            placeholder="Convoy Name" 
+                                            id="convoyName" 
+                                            className="validate" 
+                                            value={this.state.convoyName}
+                                            onKeyPress={(e) => {
+                                                this.setState({ convoyName: this.state.convoyName + e.key });
+                                                // if (e.key === 'Enter') {
+                                                //     let {emails} = this.state;
+                                                //     emails.push({
+                                                //         convoyName: this.state.convoyName
+                                                //     });
+                                                //     this.setState({ emails, convoyName: '' });
+                                                //     console.log({emails});
+                                                    
+                                                // }
+                                                console.log(this.stateconvoyName);
+                                            }}
+                                        />
                                         <input
                                             placeholder="email"
                                             className="inviteEmail validate"
                                             value={this.state.email}
                                             onKeyPress={(e) => {
-                                               //console.log('e', e.key); 
+                                               console.log('event', e.key); 
                                                this.setState({ email: this.state.email + e.key });
                                                if (e.key === 'Enter') {
                                                    let { emails } = this.state;
                                                    emails.push({
                                                        id: emails.length,
                                                        label: this.state.email,
+                                                       convoyName: this.convoyName,
                                                    });
                                                    this.setState({ emails, email: '' });
+                                                   console.log({emails});
                                                }
                                             }}
                                         />
