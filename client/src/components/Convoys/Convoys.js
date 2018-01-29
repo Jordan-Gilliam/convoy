@@ -9,8 +9,6 @@ import SignUp from "../SignUp/SignUp";
 import Chip from 'material-ui/Chip';
 
 
-
-
 var Link = require('react-router-dom').Link;
 
 var NavLink = require('react-router-dom').NavLink;
@@ -75,14 +73,7 @@ class Convoys extends Component {
         emails.splice(emailToDelete, 1);
         this.setState({ emails });
       };
-        
-    findUsername = () => {
-        const userId = firebase.auth().currentUser.uid;
-        return db.ref('/profiles' + userId).once('value').then(function(snapshot) {
-        const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-        this.setState({ username: username });
-        });
-    };
+
     
     startSendGrid = () => {
       console.log("sendgrid");
