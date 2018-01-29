@@ -3,7 +3,7 @@ import './Convoys.css';
 import dummydata from "./dummydata.json";
 import icons from './icons.json';
 import API from "../../utils/API";
-import { db } from '../../firebase';
+import { firebaseApp, db } from '../../firebase';
 import firebase from 'firebase';
 import SignUp from "../SignUp/SignUp";
 import Chip from 'material-ui/Chip';
@@ -32,6 +32,7 @@ class Convoys extends Component {
     }
     
     componentDidMount() {
+        console.log("props: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
         
         console.log(icons);
@@ -83,23 +84,21 @@ class Convoys extends Component {
       console.log(this.state.sgEmail);
     };
   
-    saveAndUpdate = (uid, name, members) => {
-        this.startSendGrid();
+    saveAndUpdate = (user, name, members) => {
+        // this.startSendGrid();
         // A convoy entry.
         const convoyData = {
-            uid: this.props.uid,
             name: this.state.convoyName,
+            member: this.props.user.uid
         };
-        
-        console.log("convoyData.uid: ", convoyData.uid);
+        console.log("convoyData: ", convoyData.uid);
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
-    
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
         updates['/convoys/' + newConvoyKey] = convoyData;
-        updates['/profiles/' + convoyData.uid + '/' + newConvoyKey] = convoyData;
-    
+        updates[(`/profiles/${convoyData.uid}/convoys`)] = newConvoyKey;
+        console.log("updates: ", updates);
         return db.ref().update(updates);
     };
    
