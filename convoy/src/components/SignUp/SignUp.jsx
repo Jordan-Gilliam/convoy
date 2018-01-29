@@ -21,7 +21,7 @@ class SignUp extends Component {
     
     //function that should be called right after signup to create new profile
     profileId = () => {
-        db.ref(`/profiles/${user.uid}`).push({
+        db.ref(`/profiles`).push({
             convoys: false,
             email: this.state.email,
             username: this.state.username
@@ -40,6 +40,7 @@ class SignUp extends Component {
                 this.setState({error});
             });
         this.state.handleCurrentUser;
+
     }
 
     //set current user to be the current UID
