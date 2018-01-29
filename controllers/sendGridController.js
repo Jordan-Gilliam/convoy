@@ -1,20 +1,10 @@
 const db = require('firebase');
 
+
 // Defining methods for the booksController
 module.exports = {
   findAll: function(req, res) {
-    // var userId = firebase.auth().currentUser.uid;
-    // return db.ref('/convoy1/members' + userId).once('value').then(function(snapshot) {
-    // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-
-    // });
-
-    db.ref.child('convoys').orderByChild('name').equalTo('test4').on("value", function(snapshot) {
-      console.log(snapshot.val());
-      snapshot.forEach(function(data) {
-        console.log(data.key);
-      });
-    });
+    // grab email chips from client
   },
 
   sendEmail: function(req, res) {
@@ -27,10 +17,10 @@ module.exports = {
           to: [{
             email: 'mbradleystylist@gmail.com'
           }],
-          subject: 'Sending with SendGrid is Fun'
+          subject: "You've been invited to join Convoy!"
         }],
         from: {
-          email: 'test@example.com'
+          email: 'weliketocodethings@gmail.com'
         },
         content: [{
           type: 'text/plain',
