@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { firebaseApp } from '../firebase';
+import { firebaseApp } from './firebase';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
-import SignIn from './SignIn/SignIn';
-import SignUp from './SignUp/SignUp';
-import Convoys from './Convoys/Convoys';
-import Map from './Map/Map';
-import Home from './Home/Home';
+import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
+import Convoys from './components/Convoys/Convoys';
+import Map from './components/Map/Map';
+import Home from './components/Home/Home';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => {
