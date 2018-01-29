@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8081 || process.env.PORT || 8080;
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const axios = require("axios");
 const routes = require("./routes");
