@@ -34,8 +34,6 @@ class Convoys extends Component {
     componentDidMount() {
         console.log("props: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
-        
-        console.log(icons);
         var icon = icons[Math.floor(Math.random()*icons.length)];
         
         //  var icon = icons.map((icon) => {
@@ -58,15 +56,7 @@ class Convoys extends Component {
         this.setState({dummydata : convoydata});
         console.log('convoy name: ' + JSON.stringify(convoydata));
     }
-    
-    /*handleDelete(data) {
-        console.log('data', data.target);
-        //const { emails } = this.state;
-        const emails = [...this.state.emails];
-        const emailToDelete = emails.indexOf(data);
-        emails.splice(emailToDelete, 1);
-        this.setState({ emails });
-    }*/
+  
     
     handleDelete = data => () => {
         const emails = [...this.state.emails];
@@ -74,40 +64,76 @@ class Convoys extends Component {
         emails.splice(emailToDelete, 1);
         this.setState({ emails });
       };
+      
+    handleInputConvoy = event => {
+        this.setState({ convoyName: event.target.value });
+    }
+    
+    handleInputEmail = event => {
+        this.setState({ email: event.target.value });
+    }
+    
+    
+    handleonKeyPress = (event) => {
+      if (event.key === 'Enter') {
+          let emails = [...this.state.emails];
+          emails.push({
+              id: emails.length,
+              label: this.state.email,
+              convoyName: this.state.convoyName,
+          });
+          this.setState({ emails, email: '' });
+      }
+    }
 
     
     startSendGrid = () => {
-      console.log("sendgrid");
+
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
-      console.log(this.state.sgEmail);
     };
   
-    saveAndUpdate = (user, name, members) => {
-        // this.startSendGrid();
-        // A convoy entry.
+    saveAndUpdate = (uid, name, members) => {
+        // if email input field is not empty (!this.state.email), push it to emails array
+        if (this.state.email) {
+            var emails = [...this.state.emails]
+            emails.push({
+                id: emails.length,
+                label: this.state.email,
+                convoyName: this.state.convoyName,
+            });
+            console.log(emails)
+            this.setState({ emails});
+        }
+        this.startSendGrid();
+        
+        // // A convoy entry.
         const convoyData = {
             name: this.state.convoyName,
-            member: this.props.user.uid
+
+            members: this.state.emails,
         };
-        console.log("convoyData: ", convoyData.uid);
+        
+        console.log(convoyData.uid);
+        console.log(convoyData);
+
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
         updates['/convoys/' + newConvoyKey] = convoyData;
-        updates[(`/profiles/${convoyData.uid}/convoys`)] = newConvoyKey;
-        console.log("updates: ", updates);
-        return db.ref().update(updates);
+
+        updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
+    
+        
+        return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
     };
    
 
     
     render() {
         var dummydata = this.state.dummydata;
-        console.log(dummydata);
-        
         return (
 
             <div>
@@ -176,43 +202,18 @@ class Convoys extends Component {
                                             id="convoyName" 
                                             className="validate" 
                                             value={this.state.convoyName}
-                                            onKeyPress={(e) => {
-                                                this.setState({ convoyName: this.state.convoyName + e.key });
-                                                
-                                                // if (e.key === 'Enter') {
-                                                //     let {emails} = this.state;
-                                                //     emails.push({
-                                                //         convoyName: this.state.convoyName
-                                                //     });
-                                                //     this.setState({ emails, convoyName: '' });
-                                                //     console.log({emails});
-                                                    
-                                                // }
-                                                console.log(this.stateconvoyName);
-                                            }}
+                                            onChange={this.handleInputConvoy}
+                         
                                         />
                                         <input
                                             placeholder="email"
                                             className="inviteEmail validate"
                                             value={this.state.email}
-                                            onKeyPress={(e) => {
-                                               console.log('event', e.key); 
-                                               this.setState({ email: this.state.email + e.key });
-                                               if (e.key === 'Enter') {
-                                                   let { emails } = this.state;
-                                                   emails.push({
-                                                       id: emails.length,
-                                                       label: this.state.email,
-                                                       convoyName: this.state.convoyName,
-                                                   });
-                                                   this.setState({ emails, email: '' });
-                                                   console.log({emails});
-                                               }
-                                            }}
+                                            onChange={this.handleInputEmail}
+                                            onKeyPress={this.handleonKeyPress}
                                         />
                                         {
                                             this.state.emails.map(data => {
-                                                console.log("chip")
                                               return (
                                                     <Chip
                                                     key={data.id}
