@@ -3,6 +3,10 @@ import './Convoys.css';
 import dummydata from "./dummydata.json";
 import icons from './icons.json';
 import Chip from 'material-ui/Chip';
+import API from "../../utils/API";
+import { db } from '../../firebase';
+import firebase from 'firebase';
+import SignUp from "../SignUp/SignUp";
 
 var Link = require('react-router-dom').Link;
 
@@ -17,6 +21,11 @@ class Convoys extends Component {
             emails: [],
             icon: null,
             convoyName: '',
+            newEmails: [],
+            username: '',
+            sgEmail: {},
+           
+            
         };
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -63,49 +72,44 @@ class Convoys extends Component {
         emails.splice(emailToDelete, 1);
         this.setState({ emails });
       };
+        
+    findUsername = () => {
+        const userId = firebase.auth().currentUser.uid;
+        return db.ref('/profiles' + userId).once('value').then(function(snapshot) {
+        const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+        this.setState({ username: username });
+        });
+    };
     
-    sendGrid() {
-       
-        console.log('sending!');
-        const { emails } = this.state;
-        console.log({emails});
-        
-        
-        const sgMail = require('@sendgrid/mail');
-        // const sg = require("sendgrid")(SENDGRID_API_KEY);
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        
-        const msg = {
-          to: ['gilliamja.te@gmail.com', 'isa.oambrosio@gmail.com', 'gregory.jimr@gmail.com', 'mbradleystylist@gmail.com'],
-          from: 'test@example.com',
-          subject: '{friend} has invited you to join Convoy!',
-          text: 'Hello and welcome to Convoy! Your friend {user} has invited you to join a convoy for your next trip. Click below to accept the invitation and sign up today. Convoy Description.',
-          html: '<button>Join the Convoy!</button>',
+    startSendGrid = () => {
+      console.log("sendgrid");
+      API.postEmail()
+        .then(res => this.setState({ sgEmail : res.data }))
+        .catch(err => console.log(err));
+      console.log(this.state.sgEmail);
+    };
+  
+    saveAndUpdate = (uid, name, members) => {
+        this.startSendGrid();
+        // A convoy entry.
+        const convoyData = {
+            uid: this.state.username,
+            name: this.state.convoyName,
+            members: this.state.email,
         };
         
-        // send and sendMultiple methods return a Promise
-        // handle success and capture errors:
-        // **this is needed for all options
-        sgMail
-          .send(msg)
-          .then(() => {
-            //Celebrate
-            console.log("email sent");
-          })
-          .catch(error => {
-        
-            //Log friendly error
-            console.error(error.toString());
-        
-            // //Extract error msg
-            const {message, code, response} = error;
-        
-            // //Extract response msg
-            const {headers, body} = response;
-          });
-  
-        sgMail.send(msg);
-    }
+        console.log(convoyData.uid);
+        // Get a key for a new Convoy.
+        const newConvoyKey = db.ref().child('convoys').push().key;
+    
+        // Write the new convoy's data simultaneously in the convoys list and the profiles list.
+        var updates = {};
+        updates['/convoys/' + newConvoyKey] = convoyData;
+        updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
+    
+        return db.ref().update(updates);
+    };
+   
 
     
     render() {
@@ -228,7 +232,7 @@ class Convoys extends Component {
                                     </form>
                                 </div>
                                 <div className="modal-footer">
-                                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={() => this.sendGrid()}>Create</a>
+                                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={() => this.saveAndUpdate()}>Create</a>
                                 </div>
                             </div>
                         </div>

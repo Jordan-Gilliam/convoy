@@ -7,21 +7,23 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "client": "node convoy/src/scripts/start-client.js",
+    "client": "node scripts/start-client.js",
     "server": "node server.js",
-    "build": "node convoy/src/scripts/build.js",
+    "build": "node convoy/scripts/build.js",
     "installDeps": "yarn && cd client && yarn"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
-    "concurrently": "^3.5.1",
     "create-react-app": "^1.5.1",
     "express": "^4.16.2",
+    "firebase": "^4.9.0",
     "google-maps-react": "^1.1.2",
     "react-geolocation": "^1.0.3"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "nodemon": "^1.14.11"
   }
 }
