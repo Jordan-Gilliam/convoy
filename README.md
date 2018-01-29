@@ -11,8 +11,12 @@ Making group travel easy
 ## Built With
 
 * [Node](https://nodejs.org/en/) - Backend
+* [Express](https://expressjs.com/) - Server
+* [SendGrid](https://sendgrid.com/) - Email Invitation
+
 * [yarn](https://yarnpkg.com/en/) - Pkg manager
 * [firebase](https://firebase.google.com/) - Database
+* [Google Maps](https://developers.google.com/maps/) - API
 * [React](https://reactjs.org/) - Framework
 
 
