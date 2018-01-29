@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { firebaseApp, db, defaultAuth } from '../../firebase';
-import firebase from 'firebase';
 
 class SignUp extends Component {
     constructor(props) {
@@ -13,39 +12,32 @@ class SignUp extends Component {
             error: {
                 message: ''
             },
-            user: firebase.auth.uid,
         };
     }
     //createUser requires createUser, handleCurrentUser and is called on signup
     
     
     //function that should be called right after signup to create new profile
-    profileId = () => {
-        db.ref(`/profiles`).push({
+    profileId = (user) => {
+        console.log("profileId props: "+ JSON.stringify(user, null, 4));
+        db.ref(`/profiles/${user.uid}`).set({
             convoys: false,
             email: this.state.email,
             username: this.state.username
-        }).key;
+        });
     }
     
     signUp = () => {
         // console.log('this.state', this.state);
         const { email, password } = this.state;
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-            .then(
-                this.profileId()
+            .then((user) =>
+                this.profileId(user)
             )
             .catch(error => {
                 console.log('error', error);
                 this.setState({error});
             });
-        this.state.handleCurrentUser;
-
-    }
-
-    //set current user to be the current UID
-    handleCurrentUser = () => {
-        this.setState({user: firebaseApp.firebase.auth().currentUser});
     }
     
     componentDidMount() {
@@ -57,6 +49,7 @@ class SignUp extends Component {
     }
     
     render() {
+        console.log("render props: "+ JSON.stringify(this.props, null, 4));
         const {user} = this.props;
         
         if (user) {
