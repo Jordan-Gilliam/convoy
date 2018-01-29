@@ -10,7 +10,8 @@ const config = {
   };
 
 export const firebaseApp = firebase.initializeApp(config);
-export const database = firebase.database();
+export const db = firebase.database();
+export const defaultAuth = firebase.auth();
 
 
 
