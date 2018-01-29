@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebaseApp } from './firebase';
+import { firebaseApp, db } from './firebase';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 // import { logUser } from '../actions';
