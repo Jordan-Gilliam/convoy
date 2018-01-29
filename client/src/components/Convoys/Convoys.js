@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Convoys.css';
 import dummydata from "./dummydata.json";
-import SENDGRID_API_KEY from "./sendgrid.env";
 import icons from './icons.json';
 import Chip from 'material-ui/Chip';
 
@@ -66,18 +65,19 @@ class Convoys extends Component {
       };
     
     sendGrid() {
+       
+        console.log('sending!');
         const { emails } = this.state;
         console.log({emails});
         
         
-        console.log(SENDGRID_API_KEY);
         const sgMail = require('@sendgrid/mail');
         // const sg = require("sendgrid")(SENDGRID_API_KEY);
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         
         const msg = {
-          to: [],
-          from: '',
+          to: ['gilliamja.te@gmail.com', 'isa.oambrosio@gmail.com', 'gregory.jimr@gmail.com', 'mbradleystylist@gmail.com'],
+          from: 'test@example.com',
           subject: '{friend} has invited you to join Convoy!',
           text: 'Hello and welcome to Convoy! Your friend {user} has invited you to join a convoy for your next trip. Click below to accept the invitation and sign up today. Convoy Description.',
           html: '<button>Join the Convoy!</button>',
@@ -90,6 +90,7 @@ class Convoys extends Component {
           .send(msg)
           .then(() => {
             //Celebrate
+            console.log("email sent");
           })
           .catch(error => {
         
