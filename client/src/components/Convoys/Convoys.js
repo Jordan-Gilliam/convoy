@@ -87,19 +87,18 @@ class Convoys extends Component {
         this.startSendGrid();
         // A convoy entry.
         const convoyData = {
-            uid: this.state.username,
+            uid: this.props.uid,
             name: this.state.convoyName,
-            members: this.state.email,
         };
         
-        console.log(convoyData.uid);
+        console.log("convoyData.uid: ", convoyData.uid);
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
     
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
         updates['/convoys/' + newConvoyKey] = convoyData;
-        updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
+        updates['/profiles/' + convoyData.uid + '/' + newConvoyKey] = convoyData;
     
         return db.ref().update(updates);
     };
