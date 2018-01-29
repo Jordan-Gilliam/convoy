@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import './Convoys.css';
 import dummydata from "./dummydata.json";
 import icons from './icons.json';
-import Chip from 'material-ui/Chip';
 import API from "../../utils/API";
 import { db } from '../../firebase';
 import firebase from 'firebase';
 import SignUp from "../SignUp/SignUp";
+import Chip from 'material-ui/Chip';
+
 
 var Link = require('react-router-dom').Link;
 
@@ -72,14 +73,7 @@ class Convoys extends Component {
         emails.splice(emailToDelete, 1);
         this.setState({ emails });
       };
-        
-    findUsername = () => {
-        const userId = firebase.auth().currentUser.uid;
-        return db.ref('/profiles' + userId).once('value').then(function(snapshot) {
-        const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-        this.setState({ username: username });
-        });
-    };
+
     
     startSendGrid = () => {
       console.log("sendgrid");
@@ -117,6 +111,7 @@ class Convoys extends Component {
         console.log(dummydata);
         
         return (
+
             <div>
                 <nav>
                     <div className="nav-wrapper">
@@ -209,7 +204,7 @@ class Convoys extends Component {
                                                    emails.push({
                                                        id: emails.length,
                                                        label: this.state.email,
-                                                       convoyName: this.convoyName,
+                                                       convoyName: this.state.convoyName,
                                                    });
                                                    this.setState({ emails, email: '' });
                                                    console.log({emails});
@@ -218,17 +213,16 @@ class Convoys extends Component {
                                         />
                                         {
                                             this.state.emails.map(data => {
-
+                                                console.log("chip")
                                               return (
-                                                <Chip
-                                                  key={data.id}
-                                                  label={data.label}
-                                                  onDelete={this.handleDelete(data)}
-                                                  //className={classes.chip}
-                                                />
+                                                    <Chip
+                                                    key={data.id}
+                                                    label={data.label}
+                                                      onDelete={this.handleDelete(data)}
+                                                    />
                                               );
                                             })
-                                        }
+                                        }                                               
                                     </form>
                                 </div>
                                 <div className="modal-footer">
@@ -239,6 +233,7 @@ class Convoys extends Component {
                     </div>
                 </div>
             </div>
+
         );
     }
 }
