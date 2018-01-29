@@ -22,6 +22,8 @@ class Convoys extends Component {
             icon: null,
             convoyName: '',
             newEmails: [],
+            username: '',
+            sgEmail: {},
            
             
         };
@@ -71,12 +73,28 @@ class Convoys extends Component {
         this.setState({ emails });
       };
         
+    findUsername = () => {
+        const userId = firebase.auth().currentUser.uid;
+        return db.ref('/profiles' + userId).once('value').then(function(snapshot) {
+        const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+        this.setState({ username: username });
+        });
+    };
+    
+    startSendGrid = () => {
+      console.log("sendgrid");
+      API.postEmail()
+        .then(res => this.setState({ sgEmail : res.data }))
+        .catch(err => console.log(err));
+      console.log(this.state.sgEmail);
+    };
+  
     saveAndUpdate = (uid, name, members) => {
-
+        this.startSendGrid();
         // A convoy entry.
         const convoyData = {
+            uid: this.state.username,
             name: this.state.convoyName,
-            // uid: this.state.username,
             members: this.state.email,
         };
         
@@ -90,56 +108,8 @@ class Convoys extends Component {
         updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
     
         return db.ref().update(updates);
-        
-
-        // API.saveConvoy()
-        //     .then(res => this.setState({ newEmails: res.data }))
-        //     .catch(err => console.log(err));
-        //     console.log(this.state.newEmails);
     };
-    // sendGrid() {
-       
-    //     console.log('sending!');
-    //     const { emails } = this.state;
-    //     console.log({emails});
-        
-    //     API.saveConvoy
-        
-    //     const sgMail = require('@sendgrid/mail');
-    //     // const sg = require("sendgrid")(SENDGRID_API_KEY);
-    //     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        
-    //     const msg = {
-    //       to: ['gilliamja.te@gmail.com', 'isa.oambrosio@gmail.com', 'gregory.jimr@gmail.com', 'mbradleystylist@gmail.com'],
-    //       from: 'test@example.com',
-    //       subject: '{friend} has invited you to join Convoy!',
-    //       text: 'Hello and welcome to Convoy! Your friend {user} has invited you to join a convoy for your next trip. Click below to accept the invitation and sign up today. Convoy Description.',
-    //       html: '<button>Join the Convoy!</button>',
-    //     };
-        
-    //     // send and sendMultiple methods return a Promise
-    //     // handle success and capture errors:
-    //     // **this is needed for all options
-    //     sgMail
-    //       .send(msg)
-    //       .then(() => {
-    //         //Celebrate
-    //         console.log("email sent");
-    //       })
-    //       .catch(error => {
-        
-    //         //Log friendly error
-    //         console.error(error.toString());
-        
-    //         // //Extract error msg
-    //         const {message, code, response} = error;
-        
-    //         // //Extract response msg
-    //         const {headers, body} = response;
-    //       });
-  
-    //     sgMail.send(msg);
-    // }
+   
 
     
     render() {

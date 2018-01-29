@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const axios = require("axios");
+const routes = require("./routes");
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,13 +19,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-
-app.get("/api/emails").then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+app.use(routes);
   
 
 

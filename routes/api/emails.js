@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const sendGridController = require("../../controllers/sendGridController");
 
-// Matches with "/api/books"
-router.route("/api/emails")
+// Matches with "/api/emails"
+router.route("/")
   .get(sendGridController.findAll)
-  .post(sendGridController.create);
+  .post(sendGridController.sendEmail);
 
 
 
