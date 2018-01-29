@@ -12,7 +12,7 @@ import Home from './components/Home/Home';
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => {
     return rest.user ? (
-      <Component {...props} />
+      <Component {...rest} {...props}/>
     ) : (
       <Redirect to={{
         pathname: '/signin',
