@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Convoys.css';
-import dummydata from "./dummydata.json";
+// import dummydata from "./dummydata.json";
 import icons from './icons.json';
 import API from "../../utils/API";
 import { firebaseApp, db } from '../../firebase';
@@ -17,7 +17,7 @@ class Convoys extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dummydata: [],
+            convoys: [],
             email: '',
             emails: [],
             icons: null,
@@ -45,15 +45,16 @@ class Convoys extends Component {
         // console.log(JSON.stringify(icon));
         
         //will replace convoydata function to render convoy cards
-        db.ref(`profiles/${this.props.user.uid}/convoys`).on("value", function(snapshot) {
+        db.ref(`profiles/${this.props.user.uid}/convoys`).on("value", (snapshot) => {
             const convoys = [];
-            snapshot.forEach(function(data) {
+            snapshot.forEach((data) => {
             console.log("data.key: " + data.key);
-            db.ref(`convoys/${data.key}/name`).once("value").then(function(results) {
-                console.log("second query");
-                console.log("results: " + JSON.stringify(results))
-                convoys.push(JSON.stringify(results))
-                console.log(convoys);
+            db.ref(`convoys/${data.key}/name`).once("value").then( (results) => {
+                // console.log("second query");
+                // console.log("results: " + JSON.stringify(results))
+                convoys.push((results.val()))
+                // console.log(convoys);
+                this.setState({convoys}, ()=> console.log(this.state.convoys));
                 })
 
             })
@@ -140,7 +141,7 @@ class Convoys extends Component {
 
     
     render() {
-        var dummydata = this.state.dummydata;
+        // var convoys = this.state.convoys;
         return (
 
             <div>
@@ -157,9 +158,9 @@ class Convoys extends Component {
                 
                 <ul className='collection'>
     
-                    {dummydata.map((data) => {
+                    {this.state.convoys.map((data) => {
                         return (
-                                <Link to={{pathname: '/map'}}  key={data.convoyName}>
+                                <Link to={{pathname: '/map'}}  key={data}>
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
                                             // console.log('icon: ' +  oneIcon);
@@ -169,7 +170,7 @@ class Convoys extends Component {
                                         })}
                                         {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
                                         <span class="title">
-                                            {data.convoyName}
+                                            {data}
                                         </span>
                                         <p id='p'>
                                             First Name 
