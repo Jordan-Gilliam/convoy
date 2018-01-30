@@ -18,6 +18,7 @@ class Convoys extends Component {
         super(props);
         this.state = {
             dummydata: [],
+            convoys: [],
             email: '',
             emails: [],
             icons: null,
@@ -44,17 +45,26 @@ class Convoys extends Component {
         // var icon = Math.floor(Math.random() * (1 + Icons.length - 1));
         // console.log(JSON.stringify(icon));
         
-        
-        var convoydata = dummydata.map((data) => {
-            console.log(data);
-            
-            return {
-                convoyName: data.name,
-            };
+        //will replace convoydata function to render convoy cards
+        db.ref(`profiles/${this.props.user.uid}/convoys`).once("value", snapshot => {
+            console.log("snapshot: ", snapshot);
+            console.log("JSON.stringify(snapshot): ", JSON.stringify(snapshot));
         });
-        // console.log(convoydata);
-        this.setState({dummydata : convoydata});
-        console.log('convoy name: ' + JSON.stringify(convoydata));
+        //.then(
+            //get good JSON for convoyIDs push them into an array.
+            //loop over each convoyId and set the convoyId in the array equal to an object that includes the ID and the name
+            //render the cards with that array
+            // )
+        // var convoydata = dummydata.map((data) => {
+        //     console.log(data);
+            
+        //     return {
+        //         convoyName: data.name,
+        //     };
+        // });
+        // // console.log(convoydata);
+        // this.setState({dummydata : convoydata});
+        // console.log('convoy name: ' + JSON.stringify(convoydata));
     }
   
     
@@ -97,13 +107,13 @@ class Convoys extends Component {
     saveAndUpdate = (uid, name, members) => {
         // if email input field is not empty (!this.state.email), push it to emails array
         if (this.state.email) {
-            var emails = [...this.state.emails]
+            var emails = [...this.state.emails];
             emails.push({
                 id: emails.length,
                 label: this.state.email,
                 convoyName: this.state.convoyName,
             });
-            console.log(emails)
+            console.log(emails);
             this.setState({ emails});
         }
         this.startSendGrid();
