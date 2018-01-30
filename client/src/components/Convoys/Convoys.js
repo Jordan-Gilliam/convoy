@@ -93,10 +93,11 @@ class Convoys extends Component {
 
     
     startSendGrid = () => {
-
+      console.log("start send grid");
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
+      console.log(this.state.sgEmail);
     };
   
     saveAndUpdate = (uid, name, members) => {
@@ -112,7 +113,9 @@ class Convoys extends Component {
             this.setState({ emails});
         }
         this.startSendGrid();
-        
+        const {user} = this.props;
+        // A convoy entry.
+
         // // A convoy entry.
         const convoyData = {
             name: this.state.convoyName,
@@ -122,6 +125,7 @@ class Convoys extends Component {
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
+
         //add the convoy's name to the convoy
         updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
         //add the current user UID to the members object
@@ -158,7 +162,7 @@ class Convoys extends Component {
                                 <Link to={{pathname: '/map'}}  key={data.convoyName}>
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
-                                            console.log('icon: ' +  oneIcon);
+                                            // console.log('icon: ' +  oneIcon);
                                             return (
                                                 <img src={oneIcon} alt='car avatar' className='circle'/>
                                             );

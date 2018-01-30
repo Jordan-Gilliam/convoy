@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const PORT = 80801 || process.env.PORT || 8080;
+// const PORT =  8081
+ const PORT = 8081|| process.env.PORT || 8080;
 const routes = require("./routes");
 const db = require("firebase");
 
