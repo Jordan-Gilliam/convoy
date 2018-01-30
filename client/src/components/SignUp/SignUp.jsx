@@ -8,7 +8,8 @@ class SignUp extends Component {
         this.state = {
             username: '',
             email: '',
-            password: '',
+            passwordInitial: '',
+            passwordConfirm: '',
             error: {
                 message: ''
             },
@@ -93,7 +94,14 @@ class SignUp extends Component {
                                             type="password"
                                             style={{marginRight: '5px'}}
                                             placeholder="password"
-                                            onChange={event => this.setState({password: event.target.value})}
+                                            onChange={event => this.setState({passwordInitial: event.target.value})}
+                                        />
+                                        <input
+                                            className="form-control"
+                                            type="password"
+                                            style={{marginRight: '5px'}}
+                                            placeholder="confirm password"
+                                            onChange={event => this.setState({passwordConfirm: event.target.value})}
                                         />
                                         <button
                                             className="btn btn-primary red"
