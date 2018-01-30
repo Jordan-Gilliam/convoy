@@ -3,7 +3,7 @@ import './Convoys.css';
 import dummydata from "./dummydata.json";
 import icons from './icons.json';
 import API from "../../utils/API";
-import { db } from '../../firebase';
+import { firebaseApp, db } from '../../firebase';
 import firebase from 'firebase';
 import SignUp from "../SignUp/SignUp";
 import Chip from 'material-ui/Chip';
@@ -20,7 +20,7 @@ class Convoys extends Component {
             dummydata: [],
             email: '',
             emails: [],
-            icon: null,
+            icons: null,
             convoyName: '',
             newEmails: [],
             username: '',
@@ -32,16 +32,15 @@ class Convoys extends Component {
     }
     
     componentDidMount() {
+        console.log("props: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
+        // var icon = icons[Math.floor(Math.random()*icons.length)];
         
-        console.log(icons);
-        var icon = icons[Math.floor(Math.random()*icons.length)];
-        
-        //  var icon = icons.map((icon) => {
-        //     console.log(icon);
-        // })
-        console.log('icon ' + icon);
-        this.setState({icon});
+      
+            this.setState({icons});
+    
+        // console.log('icon ' + icon);
+        // this.setState({icon});
         // var icon = Math.floor(Math.random() * (1 + Icons.length - 1));
         // console.log(JSON.stringify(icon));
         
@@ -57,15 +56,7 @@ class Convoys extends Component {
         this.setState({dummydata : convoydata});
         console.log('convoy name: ' + JSON.stringify(convoydata));
     }
-    
-    /*handleDelete(data) {
-        console.log('data', data.target);
-        //const { emails } = this.state;
-        const emails = [...this.state.emails];
-        const emailToDelete = emails.indexOf(data);
-        emails.splice(emailToDelete, 1);
-        this.setState({ emails });
-    }*/
+  
     
     handleDelete = data => () => {
         const emails = [...this.state.emails];
@@ -73,44 +64,80 @@ class Convoys extends Component {
         emails.splice(emailToDelete, 1);
         this.setState({ emails });
       };
+      
+    handleInputConvoy = event => {
+        this.setState({ convoyName: event.target.value });
+    }
+    
+    handleInputEmail = event => {
+        this.setState({ email: event.target.value });
+    }
+    
+    
+    handleonKeyPress = (event) => {
+      if (event.key === 'Enter') {
+          let emails = [...this.state.emails];
+          emails.push({
+              id: emails.length,
+              label: this.state.email,
+              convoyName: this.state.convoyName,
+          });
+          this.setState({ emails, email: '' });
+      }
+    }
 
     
     startSendGrid = () => {
-      console.log("sendgrid method called");
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
       console.log(this.state.sgEmail);
-      console.log("sent from the client!");
+
+      API.postEmail()
+        .then(res => this.setState({ sgEmail : res.data }))
+        .catch(err => console.log(err));
     };
   
     saveAndUpdate = (uid, name, members) => {
+        // if email input field is not empty (!this.state.email), push it to emails array
+        if (this.state.email) {
+            var emails = [...this.state.emails]
+            emails.push({
+                id: emails.length,
+                label: this.state.email,
+                convoyName: this.state.convoyName,
+            });
+            console.log(emails)
+            this.setState({ emails});
+        }
         this.startSendGrid();
         const {user} = this.props;
         // A convoy entry.
+
+        // // A convoy entry.
         const convoyData = {
             name: this.state.convoyName,
-            members: this.state.email,
+            uid: this.props.user.uid
         };
-        
-        console.log(convoyData.uid);
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
-    
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
-        updates['/convoys/' + newConvoyKey] = convoyData;
-        // updates[(`/profiles/${user.uid}`)+ '/' + newConvoyKey] = convoyData;
-    
-        return db.ref().update(updates);
+
+        //add the convoy's name to the convoy
+        updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
+        //add the current user UID to the members object
+        updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+        //add the convoykey to the current user's profile
+        updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
+        
+        return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
     };
    
 
     
     render() {
         var dummydata = this.state.dummydata;
-        console.log(dummydata);
-        
         return (
 
             <div>
@@ -131,8 +158,13 @@ class Convoys extends Component {
                         return (
                                 <Link to={{pathname: '/map'}}  key={data.convoyName}>
                                     <li className='collection-item avatar'>
-                                        {/*<img src={this.state.icon} alt="" class="circle"/>*/}
-                                        <img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>
+                                        {this.state.icons.map((oneIcon) => {
+                                            // console.log('icon: ' +  oneIcon);
+                                            return (
+                                                <img src={oneIcon} alt='car avatar' className='circle'/>
+                                            );
+                                        })}
+                                        {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
                                         <span class="title">
                                             {data.convoyName}
                                         </span>
@@ -179,43 +211,18 @@ class Convoys extends Component {
                                             id="convoyName" 
                                             className="validate" 
                                             value={this.state.convoyName}
-                                            onKeyPress={(e) => {
-                                                this.setState({ convoyName: this.state.convoyName + e.key });
-                                                
-                                                // if (e.key === 'Enter') {
-                                                //     let {emails} = this.state;
-                                                //     emails.push({
-                                                //         convoyName: this.state.convoyName
-                                                //     });
-                                                //     this.setState({ emails, convoyName: '' });
-                                                //     console.log({emails});
-                                                    
-                                                // }
-                                                console.log(this.stateconvoyName);
-                                            }}
+                                            onChange={this.handleInputConvoy}
+                         
                                         />
                                         <input
                                             placeholder="email"
                                             className="inviteEmail validate"
                                             value={this.state.email}
-                                            onKeyPress={(e) => {
-                                               console.log('event', e.key); 
-                                               this.setState({ email: this.state.email + e.key });
-                                               if (e.key === 'Enter') {
-                                                   let { emails } = this.state;
-                                                   emails.push({
-                                                       id: emails.length,
-                                                       label: this.state.email,
-                                                       convoyName: this.state.convoyName,
-                                                   });
-                                                   this.setState({ emails, email: '' });
-                                                   console.log({emails});
-                                               }
-                                            }}
+                                            onChange={this.handleInputEmail}
+                                            onKeyPress={this.handleonKeyPress}
                                         />
                                         {
                                             this.state.emails.map(data => {
-                                                console.log("chip")
                                               return (
                                                     <Chip
                                                     key={data.id}
