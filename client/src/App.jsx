@@ -65,7 +65,8 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path="/signin" render={props => <SignIn user={user} {...props} />} />
-          <Route path='/signup' render = {props=> <SignUp user={user} {...props} />} />
+          <Route path='/signup/' render = {props=> <SignUp user={user} {...props} />} />
+          <Route path='/signup/:id' render = {props=> <SignUp user={user} {...props} />} />
           <Route path='/signout' render={() => this.signOut()} />
           <PrivateRoute path='/convoys' component={Convoys} user={user} />
           <PrivateRoute path='/map' component={Map} user={user} />
