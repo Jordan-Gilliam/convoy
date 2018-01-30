@@ -14,11 +14,11 @@ module.exports = {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     
     const msg = {
-      to: ['mbradleystylist@gmail.com', 'mfbrad@vt.edu'],
+      to: [''],
       from: process.env.EMAIL,
       subject: 'Welcome to Convoy!',
-      text: 'Your friend has invited you to join Convoy, the latest and greatest travel app on the market!',
-      html: '<button>Join the Convoy!</button>',
+      text: "Boom. Great Success!",
+      html: '<img src="../public/convoy.png" /><button>Join the Convoy!</button>',
     };
     
     sgMail.sendMultiple(msg);
