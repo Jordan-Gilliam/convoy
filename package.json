@@ -2,7 +2,11 @@
   "name": "yarn",
   "version": "1.0.0",
   "main": "server.js",
+<<<<<<< HEAD
   "homepage": "https://jordan-gilliam.github.io/convoy/",
+=======
+  "homepage": "git@github.com:Jordan-Gilliam/convoy.git",
+>>>>>>> parent of 8d1b255... Updates
   "repository": "git@github.com:Jordan-Gilliam/convoy.git",
   "author": "",
   "license": "MIT",
@@ -10,33 +14,33 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "client": "node scripts/start-client.js",
     "server": "node server.js",
+<<<<<<< HEAD
     "build": "node scripts/build.js",
     "installDeps": "yarn && cd client && yarn",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master"
+=======
+    "build": "node convoy/scripts/build.js",
+    "installDeps": "yarn && cd client && yarn",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+>>>>>>> parent of 8d1b255... Updates
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
-    "concurrently": "^3.5.1",
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "create-react-app": "^1.5.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
     "firebase": "^4.9.0",
     "google-maps-react": "^1.1.2",
-    "material-ui": "^1.0.0-beta.30",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
     "react-geolocation": "^1.0.3",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17",
-    "redux": "^3.7.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "sendgrid": "^5.2.3"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
+    "gh-pages": "^1.1.0",
     "nodemon": "^1.14.11"
   }
 }
