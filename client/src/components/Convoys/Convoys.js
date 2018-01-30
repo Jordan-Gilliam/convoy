@@ -18,7 +18,6 @@ class Convoys extends Component {
         super(props);
         this.state = {
             dummydata: [],
-            convoys: [],
             email: '',
             emails: [],
             icons: null,
@@ -33,7 +32,7 @@ class Convoys extends Component {
     }
     
     componentDidMount() {
-        console.log("props: ", this.props.user.uid);
+        console.log("this.props.user.uid: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
         // var icon = icons[Math.floor(Math.random()*icons.length)];
         
@@ -46,27 +45,23 @@ class Convoys extends Component {
         // console.log(JSON.stringify(icon));
         
         //will replace convoydata function to render convoy cards
-        db.ref(`profiles/${this.props.user.uid}/convoys`).once("value", snapshot => {
-            console.log("snapshot: ", snapshot);
-            console.log("JSON.stringify(snapshot): ", JSON.stringify(snapshot));
+        db.ref(`profiles/${this.props.user.uid}/convoys`).on("value", function(snapshot) {
+            const convoys = [];
+            snapshot.forEach(function(data) {
+            console.log("data.key: " + data.key);
+            db.ref(`convoys/${data.key}/name`).once("value").then(function(results) {
+                console.log("second query");
+                console.log("results: " + JSON.stringify(results))
+                convoys.push(JSON.stringify(results))
+                console.log(convoys);
+                })
+
+            })
+            // console.log("snapshot: ", snapshot);
+            // console.log("JSON.stringify(snapshot): ", JSON.stringify(snapshot));
         });
-        //.then(
-            //get good JSON for convoyIDs push them into an array.
-            //loop over each convoyId and set the convoyId in the array equal to an object that includes the ID and the name
-            //render the cards with that array
-            // )
-        // var convoydata = dummydata.map((data) => {
-        //     console.log(data);
-            
-        //     return {
-        //         convoyName: data.name,
-        //     };
-        // });
-        // // console.log(convoydata);
-        // this.setState({dummydata : convoydata});
-        // console.log('convoy name: ' + JSON.stringify(convoydata));
     }
-  
+    
     
     handleDelete = data => () => {
         const emails = [...this.state.emails];
@@ -98,10 +93,11 @@ class Convoys extends Component {
 
     
     startSendGrid = () => {
-
+      console.log("start send grid");
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
+      console.log(this.state.sgEmail);
     };
   
     saveAndUpdate = (uid, name, members) => {
@@ -117,7 +113,9 @@ class Convoys extends Component {
             this.setState({ emails});
         }
         this.startSendGrid();
-        
+        const {user} = this.props;
+        // A convoy entry.
+
         // // A convoy entry.
         const convoyData = {
             name: this.state.convoyName,
@@ -127,12 +125,13 @@ class Convoys extends Component {
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
+
         //add the convoy's name to the convoy
         updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
         //add the current user UID to the members object
-        updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+        updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid];
         //add the convoykey to the current user's profile
-        updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
+        updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey];
     
         
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));

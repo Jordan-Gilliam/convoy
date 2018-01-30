@@ -2,6 +2,7 @@
   "name": "convoy",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8081",
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "concurrently": "^3.5.1",
