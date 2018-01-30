@@ -2,6 +2,7 @@ import React from "react";
 import Geolocation from "react-geolocation";
 
 export default () => {
+
   return (
     <Geolocation
       onSuccess={console.log}

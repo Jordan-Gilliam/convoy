@@ -28,7 +28,7 @@ class SignUp extends Component {
         });
         //will check for params on route, if exists, connects profile and convoy
         // if (params.id) {
-            console.log("params");
+            // console.log("params");
         //         db.ref(`profiles/${user.uid}/convoys/${params.id}`).push(true);
         //         db.ref(`convoys/${params.id}/members/${user.uid}`).push(true);
     
