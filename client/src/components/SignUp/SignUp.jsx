@@ -36,8 +36,9 @@ class SignUp extends Component {
     
     signUp = () => {
         // console.log('this.state', this.state);
-        const { email, password } = this.state;
-        firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+        const { email, passwordInitial, passwordConfirm } = this.state;
+        if (passwordInitial === passwordConfirm) {
+        firebaseApp.auth().createUserWithEmailAndPassword(email, passwordInitial)
             .then((user) =>
                 this.profileId(user)
             )
@@ -45,6 +46,9 @@ class SignUp extends Component {
                 console.log('error', error);
                 this.setState({error});
             });
+        } else {
+            alert("check password spelling and try again");
+        }
     }
     
     componentDidMount() {
