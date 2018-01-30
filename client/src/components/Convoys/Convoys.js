@@ -76,18 +76,19 @@ class Convoys extends Component {
 
     
     startSendGrid = () => {
-      console.log("sendgrid");
+      console.log("sendgrid method called");
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
       console.log(this.state.sgEmail);
+      console.log("sent from the client!");
     };
   
     saveAndUpdate = (uid, name, members) => {
         this.startSendGrid();
+        const {user} = this.props;
         // A convoy entry.
         const convoyData = {
-            uid: this.state.username,
             name: this.state.convoyName,
             members: this.state.email,
         };
@@ -99,7 +100,7 @@ class Convoys extends Component {
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
         updates['/convoys/' + newConvoyKey] = convoyData;
-        updates['/profiles/' + uid + '/' + newConvoyKey] = convoyData;
+        // updates[(`/profiles/${user.uid}`)+ '/' + newConvoyKey] = convoyData;
     
         return db.ref().update(updates);
     };
