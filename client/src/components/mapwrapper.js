@@ -37,11 +37,10 @@ export class MapContainer extends React.Component {
              />
         ))}
 
-        
              
         <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
-                
+                <button onClick = {() => this.MapUpdater}>Update Map</button>
             </div>
         </InfoWindow>
       </Map>
