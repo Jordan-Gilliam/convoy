@@ -18,6 +18,7 @@ class Convoys extends Component {
         super(props);
         this.state = {
             convoys: [],
+            convoysKey: [],
             email: '',
             emails: [],
             icons: null,
@@ -25,7 +26,8 @@ class Convoys extends Component {
             newEmails: [],
             username: '',
             sgEmail: {},
-           
+            object: [],
+
             
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -47,14 +49,26 @@ class Convoys extends Component {
         //will replace convoydata function to render convoy cards
         db.ref(`profiles/${this.props.user.uid}/convoys`).on("value", (snapshot) => {
             const convoys = [];
+            const convoysKey = [];
             snapshot.forEach((data) => {
             console.log("data.key: " + data.key);
             db.ref(`convoys/${data.key}/name`).once("value").then( (results) => {
-                // console.log("second query");
-                // console.log("results: " + JSON.stringify(results))
-                convoys.push((results.val()))
-                // console.log(convoys);
-                this.setState({convoys}, ()=> console.log(this.state.convoys));
+                console.log("second query");
+                console.log("results: " + JSON.stringify(results))
+                convoys.push(results.val())
+                convoysKey.push(data.key)
+                console.log(convoys);
+                
+                var object = {};
+                convoys.forEach((convoy, i) => object[convoy] = convoysKey[i]);
+                
+                object= {object: object};
+                console.log(object);
+                
+                this.setState({convoys});
+                this.setState({convoysKey});
+                console.log(convoys);
+                console.log(convoysKey);
                 })
 
             })
@@ -130,18 +144,17 @@ class Convoys extends Component {
         //add the convoy's name to the convoy
         updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
         //add the current user UID to the members object
-        updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid];
+        updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
         //add the convoykey to the current user's profile
-        updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey];
+        updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
     
-        
+        console.log(this.state.email);
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
+        
     };
-   
-
     
     render() {
-        // var convoys = this.state.convoys;
+        var convoysKey = this.state.convoysKey;
         return (
 
             <div>
@@ -158,8 +171,9 @@ class Convoys extends Component {
                 
                 <ul className='collection'>
     
-                    {this.state.convoys.map((data) => {
+                    {this.state.arr.map((data) => {
                         return (
+                    
                                 <Link to={{pathname: '/map'}}  key={data}>
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
@@ -170,7 +184,7 @@ class Convoys extends Component {
                                         })}
                                         {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
                                         <span class="title">
-                                            {data}
+                                            {data.key}
                                         </span>
                                         <p id='p'>
                                             First Name 
@@ -182,25 +196,15 @@ class Convoys extends Component {
                                     </li>
                                     <div className='divider'></div>
                                 </Link>
+                        
+                     
                         );
+                       
                     })}
                 
                 </ul>
                 
                 <div className='container'>
-            
-                    <div className='row'>
-                        <div className='col s12'>
-                            
-                            {/*<ul className="collection">
-                              <li className="collection-item">
-                              <Link to={{pathname: '/map'}}>Convoy I</Link>
-                              </li>
-                            </ul>*/}
-              
-
-                        </div>
-                    </div>  
                   
                     <div className='row'>
                         <div className='col s8 offset-s2'>
@@ -219,6 +223,7 @@ class Convoys extends Component {
                          
                                         />
                                         <input
+                                        
                                             placeholder="email"
                                             className="inviteEmail validate"
                                             value={this.state.email}
