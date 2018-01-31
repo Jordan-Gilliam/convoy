@@ -1,12 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-<<<<<<< HEAD
 const PORT = 8081 || process.env.PORT || 8080;
-=======
-// const PORT =  8081
- const PORT = 8081|| process.env.PORT || 8080;
->>>>>>> parent of 8d1b255... Updates
 const routes = require("./routes");
 const db = require("firebase");
 
