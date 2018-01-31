@@ -8,6 +8,26 @@ Making group travel easy
 
  <a href="https://www.heroku.com/">Heroku</a> 
 
+
+## User Authorization
+<p style="text-align:center"><img src ="https://i.gyazo.com/7e9d482db7ed7ea06526f8f315a29e09.gif" />
+</p>
+<br>
+Firebase + React:
+Our Auth is wicked smaht, if youve signed in already it will remember.
+
+## UI
+
+<br>
+
+## Firebase
+
+<br>
+
+## SendGrid
+
+<br>
+
 ## Built With
 
 * [Node](https://nodejs.org/en/) - Backend
@@ -19,10 +39,6 @@ Making group travel easy
 * [Google Maps](https://developers.google.com/maps/) - API
 * [React](https://reactjs.org/) - Framework
 
-
-## Contributing
-
-Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
 
 
 ## Authors

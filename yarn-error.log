@@ -18,6 +18,11 @@ npm manifest:
     "name": "yarn",
     "version": "1.0.0",
     "main": "server.js",
+  <<<<<<< HEAD
+    "homepage": "https://jordan-gilliam.github.io/convoy/",
+  =======
+    "homepage": "git@github.com:Jordan-Gilliam/convoy.git",
+  >>>>>>> parent of 8d1b255... Updates
     "repository": "git@github.com:Jordan-Gilliam/convoy.git",
     "author": "",
     "license": "MIT",
@@ -25,8 +30,17 @@ npm manifest:
       "start": "concurrently \"nodemon server.js\" \"npm run client\"",
       "client": "node scripts/start-client.js",
       "server": "node server.js",
+  <<<<<<< HEAD
+      "build": "node scripts/build.js",
+      "installDeps": "yarn && cd client && yarn",
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -b master"
+  =======
       "build": "node convoy/scripts/build.js",
-      "installDeps": "yarn && cd client && yarn"
+      "installDeps": "yarn && cd client && yarn",
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -d build"
+  >>>>>>> parent of 8d1b255... Updates
     },
     "dependencies": {
       "@sendgrid/mail": "^6.2.1",
@@ -42,6 +56,7 @@ npm manifest:
     },
     "devDependencies": {
       "concurrently": "^3.5.1",
+      "gh-pages": "^1.1.0",
       "nodemon": "^1.14.11"
     }
   }
@@ -155,6 +170,10 @@ Lockfile:
       "@sendgrid/client" "^6.2.1"
       "@sendgrid/helpers" "^6.2.1"
   
+  "@types/caseless@*":
+    version "0.12.1"
+    resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.1.tgz#9794c69c8385d0192acc471a540d1f8e0d16218a"
+  
   "@types/form-data@*":
     version "2.2.1"
     resolved "https://registry.yarnpkg.com/@types/form-data/-/form-data-2.2.1.tgz#ee2b3b8eaa11c0938289953606b745b738c54b1e"
@@ -166,9 +185,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.0.tgz#b85a0bcf1e1cc84eb4901b7e96966aedc6f078d1"
   
   "@types/request@^2.0.3":
-    version "2.0.13"
-    resolved "https://registry.yarnpkg.com/@types/request/-/request-2.0.13.tgz#f97cbb212bfe1b7b9b7db97b3a8b3a0a2d2ad425"
+    version "2.47.0"
+    resolved "https://registry.yarnpkg.com/@types/request/-/request-2.47.0.tgz#76a666cee4cb85dcffea6cd4645227926d9e114e"
     dependencies:
+      "@types/caseless" "*"
       "@types/form-data" "*"
       "@types/node" "*"
       "@types/tough-cookie" "*"
@@ -856,6 +876,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
     dependencies:
       is-obj "^1.0.0"
+  
+  dotenv@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
   
   duplexer2@~0.0.2:
     version "0.0.2"
@@ -3184,5 +3208,9 @@ Lockfile:
       y18n "^3.2.0"
 
 Trace: 
-  Error: https://registry.yarnpkg.com/rx/-/rx-2.3.24.tgz: ENOENT: no such file or directory, open '/home/ubuntu/.cache/yarn/v1/npm-rx-2.3.24-14f950a4217d7e35daa71bbcbe58eff68ea4b2b7/src/core/linq/observable/groupjoin.js'
-      at Error (native)
+  SyntaxError: /home/ubuntu/workspace/convoy/package.json: Unexpected token < in JSON at position 65
+      at Object.parse (native)
+      at /home/ubuntu/.nvm/versions/node/v6.11.2/lib/node_modules/yarn/lib/cli.js:770:59
+      at next (native)
+      at step (/home/ubuntu/.nvm/versions/node/v6.11.2/lib/node_modules/yarn/lib/cli.js:92:30)
+      at /home/ubuntu/.nvm/versions/node/v6.11.2/lib/node_modules/yarn/lib/cli.js:103:13

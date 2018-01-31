@@ -2,7 +2,7 @@
   "name": "yarn",
   "version": "1.0.0",
   "main": "server.js",
-  "homepage": "git@github.com:Jordan-Gilliam/convoy.git",
+  "homepage": "https://jordan-gilliam.github.io/convoy/",
   "repository": "git@github.com:Jordan-Gilliam/convoy.git",
   "author": "",
   "license": "MIT",

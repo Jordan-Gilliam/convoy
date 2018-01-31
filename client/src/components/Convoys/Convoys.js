@@ -18,7 +18,10 @@ class Convoys extends Component {
         super(props);
         this.state = {
             convoys: [],
-            convoysKey: [],
+
+
+            convoysId: [],
+
             email: '',
             emails: [],
             icons: null,
@@ -46,29 +49,19 @@ class Convoys extends Component {
         // var icon = Math.floor(Math.random() * (1 + Icons.length - 1));
         // console.log(JSON.stringify(icon));
         
-        //will replace convoydata function to render convoy cards
+        //function to render convoy cards
         db.ref(`profiles/${this.props.user.uid}/convoys`).on("value", (snapshot) => {
             const convoys = [];
-            const convoysKey = [];
+            const convoysId = [];
             snapshot.forEach((data) => {
             console.log("data.key: " + data.key);
             db.ref(`convoys/${data.key}/name`).once("value").then( (results) => {
-                console.log("second query");
-                console.log("results: " + JSON.stringify(results))
-                convoys.push(results.val())
-                convoysKey.push(data.key)
-                console.log(convoys);
-                
-                var object = {};
-                convoys.forEach((convoy, i) => object[convoy] = convoysKey[i]);
-                
-                object= {object: object};
-                console.log(object);
-                
-                this.setState({convoys});
-                this.setState({convoysKey});
-                console.log(convoys);
-                console.log(convoysKey);
+                //adds convoyId to convoy array
+                convoys.push(results.val());
+                convoysId.push(data.key);
+                //updates the convoy array in this.state to the convoy array from this function
+                this.setState({convoys}, ()=> console.log(this.state.convoys));
+                this.setState({convoysId}, ()=> console.log("convoysId: ", this.state.convoysId))
                 })
 
             })
@@ -112,7 +105,6 @@ class Convoys extends Component {
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
-      console.log(this.state.sgEmail);
     };
   
     saveAndUpdate = (uid, name, members) => {
@@ -134,19 +126,24 @@ class Convoys extends Component {
         // // A convoy entry.
         const convoyData = {
             name: this.state.convoyName,
-            uid: this.props.user.uid
+            uid: this.props.user.uid,
+            convoyID: this.state.convoyID
         };
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
-
+        console.log("newConvoyKey: " + newConvoyKey + " convoy.Data.name: " + convoyData.name + " convoy.Data.uid: " + convoyData.uid + " newConvoyKey: " + newConvoyKey)
         //add the convoy's name to the convoy
         updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
+        console.log("setting name in convoy record");
         //add the current user UID to the members object
         updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+
+        console.log("associating UID on convoy");
         //add the convoykey to the current user's profile
         updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
+        console.log("associating convoy ID on profile");
     
         console.log(this.state.email);
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
@@ -170,11 +167,11 @@ class Convoys extends Component {
                 </nav>
                 
                 <ul className='collection'>
-    
-                    {this.state.arr.map((data) => {
+
+                    {this.state.convoys.map((name, id) => {
+                        const ID = this.state.convoysId[id];
                         return (
-                    
-                                <Link to={{pathname: '/map'}}  key={data}>
+                                <Link to={{pathname: `/map/${ID}`}}  key={ID} id={ID}>
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
                                             // console.log('icon: ' +  oneIcon);
@@ -184,7 +181,8 @@ class Convoys extends Component {
                                         })}
                                         {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
                                         <span class="title">
-                                            {data.key}
+
+                                            {name}
                                         </span>
                                         <p id='p'>
                                             First Name 

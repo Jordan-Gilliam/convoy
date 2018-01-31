@@ -14,8 +14,8 @@ module.exports = {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     
     const msg = {
-      to: [''],
-      from: process.env.EMAIL,
+      to: ['email1@gmail.com, email2@gmail.com'],
+      from: 'email3@gmail.com',
       subject: 'Welcome to Convoy!',
       text: "Boom. Great Success!",
       html: '<img src="../public/convoy.png" /><button>Join the Convoy!</button>',
@@ -25,6 +25,7 @@ module.exports = {
     
     req.body.params;
     res.send("working");
+    console.log("sent");
    
   }
 };
