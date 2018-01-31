@@ -18,7 +18,10 @@ class Convoys extends Component {
         super(props);
         this.state = {
             convoys: [],
+
+
             convoysId: [],
+
             email: '',
             emails: [],
             icons: null,
@@ -26,7 +29,8 @@ class Convoys extends Component {
             newEmails: [],
             username: '',
             sgEmail: {},
-           
+            object: [],
+
             
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -135,19 +139,19 @@ class Convoys extends Component {
         console.log("setting name in convoy record");
         //add the current user UID to the members object
         updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+
         console.log("associating UID on convoy");
         //add the convoykey to the current user's profile
         updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
         console.log("associating convoy ID on profile");
     
-        
+        console.log(this.state.email);
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
+        
     };
-   
-
     
     render() {
-        // var convoys = this.state.convoys;
+        var convoysKey = this.state.convoysKey;
         return (
 
             <div>
@@ -163,6 +167,7 @@ class Convoys extends Component {
                 </nav>
                 
                 <ul className='collection'>
+
                     {this.state.convoys.map((name, id) => {
                         const ID = this.state.convoysId[id];
                         return (
@@ -176,6 +181,7 @@ class Convoys extends Component {
                                         })}
                                         {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
                                         <span class="title">
+
                                             {name}
                                         </span>
                                         <p id='p'>
@@ -188,25 +194,15 @@ class Convoys extends Component {
                                     </li>
                                     <div className='divider'></div>
                                 </Link>
+                        
+                     
                         );
+                       
                     })}
                 
                 </ul>
                 
                 <div className='container'>
-            
-                    <div className='row'>
-                        <div className='col s12'>
-                            
-                            {/*<ul className="collection">
-                              <li className="collection-item">
-                              <Link to={{pathname: '/map'}}>Convoy I</Link>
-                              </li>
-                            </ul>*/}
-              
-
-                        </div>
-                    </div>  
                   
                     <div className='row'>
                         <div className='col s8 offset-s2'>
@@ -225,6 +221,7 @@ class Convoys extends Component {
                          
                                         />
                                         <input
+                                        
                                             placeholder="email"
                                             className="inviteEmail validate"
                                             value={this.state.email}
