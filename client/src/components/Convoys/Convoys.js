@@ -98,7 +98,6 @@ class Convoys extends Component {
       API.postEmail()
         .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
-      console.log(this.state.sgEmail);
     };
   
     saveAndUpdate = (uid, name, members) => {
