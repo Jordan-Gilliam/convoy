@@ -7,6 +7,7 @@ export default {
   // },
   
   sendEmail: function(emailsHere) {
+    console.log('running here', emailsHere);
     return axios.post("/api/emails", { to: emailsHere });
   }, 
 

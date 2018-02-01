@@ -103,15 +103,15 @@ class Convoys extends Component {
       
     }
 
-    
-    startSendGrid = () => {
-      console.log("start send grid");
-
-      API.sendEmail(this.state.emailsHere)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+    startSendGrid = (emailsHere) => {
+        console.log('emailsHere', emailsHere);
+        console.log("start send grid");
+        API.sendEmail(emailsHere)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     };
-  
+    
+    
     saveAndUpdate = (uid, name, members) => {
         // if email input field is not empty (!this.state.email), push it to emails array
         let emails = this.state.emails;
@@ -126,7 +126,7 @@ class Convoys extends Component {
         this.setState({ emailsHere });
         
         
-        this.startSendGrid();
+        this.startSendGrid(emailsHere);
         const {user} = this.props;
         // A convoy entry.
 
@@ -156,7 +156,7 @@ class Convoys extends Component {
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
         
     };
-
+    
 
     render() {
         var convoysKey = this.state.convoysKey;
