@@ -36,7 +36,9 @@ class Map extends Component {
             
                 <div className='map'>
                     <GeolocationContainer>
-                        <MapContainer />
+                        <MapContainer
+                        uid={this.props.user.uid}
+                        />
                     </GeolocationContainer>
                     
                     <a className="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal2" id="button"><i class="material-icons">add</i></a>
