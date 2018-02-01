@@ -30,6 +30,9 @@ class Convoys extends Component {
             username: '',
             sgEmail: {},
             object: [],
+            labels: [],
+            allEmails: [],
+            emailsHere: [],
 
             
         };
@@ -54,20 +57,21 @@ class Convoys extends Component {
             const convoys = [];
             const convoysId = [];
             snapshot.forEach((data) => {
-            console.log("data.key: " + data.key);
+            // console.log("data.key: " + data.key);
             db.ref(`convoys/${data.key}/name`).once("value").then( (results) => {
                 //adds convoyId to convoy array
                 convoys.push(results.val());
                 convoysId.push(data.key);
                 //updates the convoy array in this.state to the convoy array from this function
-                this.setState({convoys}, ()=> console.log(this.state.convoys));
-                this.setState({convoysId}, ()=> console.log("convoysId: ", this.state.convoysId))
+                this.setState({convoys});
+                this.setState({convoysId});
                 })
 
             })
             // console.log("snapshot: ", snapshot);
             // console.log("JSON.stringify(snapshot): ", JSON.stringify(snapshot));
         });
+
     }
     
     
@@ -89,13 +93,19 @@ class Convoys extends Component {
     
     handleonKeyPress = (event) => {
       if (event.key === 'Enter') {
+          alert("hello");
           let emails = [...this.state.emails];
+          let emailsHere = [];
           emails.push({
               id: emails.length,
               label: this.state.email,
               convoyName: this.state.convoyName,
           });
+          emailsHere.push({email: this.state.email});
+          this.setState({emailsHere});
           this.setState({ emails, email: '' });
+              console.log(this.state.emailsHere);
+
       }
     }
 
@@ -117,7 +127,12 @@ class Convoys extends Component {
                 convoyName: this.state.convoyName,
             });
             console.log(emails);
+
             this.setState({ emails});
+            
+            var emailsHere = [];
+            emailsHere.push({email: this.state.email});
+            this.setState({emailsHere});
         }
         this.startSendGrid();
         const {user} = this.props;
@@ -133,23 +148,24 @@ class Convoys extends Component {
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
         var updates = {};
-        console.log("newConvoyKey: " + newConvoyKey + " convoy.Data.name: " + convoyData.name + " convoy.Data.uid: " + convoyData.uid + " newConvoyKey: " + newConvoyKey)
+        // console.log("newConvoyKey: " + newConvoyKey + " convoy.Data.name: " + convoyData.name + " convoy.Data.uid: " + convoyData.uid + " newConvoyKey: " + newConvoyKey)
         //add the convoy's name to the convoy
         updates['/convoys/' + newConvoyKey + '/name'] = convoyData.name;
-        console.log("setting name in convoy record");
+        // console.log("setting name in convoy record");
         //add the current user UID to the members object
         updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
 
         console.log("associating UID on convoy");
         //add the convoykey to the current user's profile
         updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
-        console.log("associating convoy ID on profile");
-    
-        console.log(this.state.email);
+        // console.log("associating convoy ID on profile");
+        
+        console.log(this.state.emailsHere);
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
         
     };
-    
+
+
     render() {
         var convoysKey = this.state.convoysKey;
         return (
