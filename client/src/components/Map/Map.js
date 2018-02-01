@@ -13,9 +13,11 @@ class Map extends Component {
         // convoy: this.props.convoy
     }
      componentDidMount() {
+        console.log('Map.js props', this.props);
         console.log(" user: ", this.props.user.uid, " convoy: ", this.props.convoy);
         var instance = window.M.Modal.init(this.modal);
         console.log(" user: ", this.props.user.uid, " convoy: ", this.props.convoy);
+        console.log('Map.js state', this.state);
      }
      
     render() {
@@ -23,11 +25,11 @@ class Map extends Component {
             <div>
                 <nav>
                     <div className="nav-wrapper">
-                        <a href="#" className="brand-logo center">{this.state.currentConvoy}</a>
+                        <a href="#" className="brand-logo center">{this.props.location.state.convoyName}</a>
                         <ul id="nav-mobile" className="left">
                             <li>
                                 <NavLink to='/convoys'><i className="material-icons">arrow_back</i></NavLink>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                 </nav>
