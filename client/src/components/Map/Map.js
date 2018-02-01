@@ -41,7 +41,7 @@ class Map extends Component {
                         />
                     </GeolocationContainer>
                     
-                    <a className="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal2" id="button"><i class="material-icons">add</i></a>
+                    <a className="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal2" id="button"><i className="material-icons">add</i></a>
                   
                     <div id="modal2" className="modal bottom-sheet" ref={ (modal) => this.modal = modal }>
                         <div className="modal-content">
