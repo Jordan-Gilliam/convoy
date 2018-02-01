@@ -9,13 +9,20 @@ class GeolocationContainer extends Component {
     console.log("updating position: " + JSON.stringify(currentPosition));
     this.setState({ currentPosition });
   }
+  
+  handleError = (error) => {
+    console.error("GeolocationContainer Error: " + JSON.stringify(error));
+  }
 
   componentDidMount() {
     if (!window.navigator.geolocation) {
       return alert("Geolocation is not supported by this browser.");
     }
     
-    this.watchId = window.navigator.geolocation.watchPosition(this.updatePosition);
+    this.watchId = window.navigator.geolocation.watchPosition(
+      this.updatePosition,
+      this.handleError
+    );
   }
 
   componentWillUnmount() {
