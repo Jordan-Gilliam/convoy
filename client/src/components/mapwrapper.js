@@ -32,9 +32,8 @@ export class MapContainer extends React.Component {
        } 
     
     
-    // componentDidMount() {
-        
-    // }
+    componentDidMount() {
+    }
     
     render() {
         const { currentPosition } = this.props;
