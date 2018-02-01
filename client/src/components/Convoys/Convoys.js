@@ -26,6 +26,7 @@ class Convoys extends Component {
             newEmails: [],
             username: '',
             sgEmail: {},
+            currentConvoy: ''
            
             
         };
