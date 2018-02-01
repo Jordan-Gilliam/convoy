@@ -94,6 +94,9 @@ class Convoys extends Component {
           });
           console.log('emails', emails);
           this.setState({ emails, email: '' });
+            let emailsHere = emails.map(email => email.label);
+            console.log('emailsHere', emailsHere);
+            this.setState({ emailsHere });
 
       }
     }
@@ -101,7 +104,7 @@ class Convoys extends Component {
     
     startSendGrid = () => {
       console.log("start send grid");
-      API.sendEmail(this.state.email)
+      API.sendEmail(this.state.emailsHere)
         .then(res => console.log(res))
         .catch(err => console.log(err));
     };
