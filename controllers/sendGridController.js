@@ -4,11 +4,11 @@ module.exports = {
     // grab email chips from client
   },
 
-  sendEmail: function(req, res, email) {
+  sendEmail: function(req, res, email, convoyID) {
     // // SendGrid OPTION 2 - send multiple individual emails to multiple recipients*****************************************************************
+    convoyID = req.body.convoy;
+    console.log('convoyID: ' + convoyID);
     email = req.body.to;
-    
-    console.log('req.body.response: ' + req.body);
     console.log(email);
     // only one recipient email will show in the 'to' field
     const sgMail = require('@sendgrid/mail');

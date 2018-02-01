@@ -6,9 +6,8 @@ export default {
   //   return axios.get("/api/emails", convoyData);
   // },
   
-  sendEmail: function(email) {
-    console.log(email);
-    return axios.post("/api/emails", { to: email });
+  sendEmail: function(emailsHere) {
+    return axios.post("/api/emails", { to: emailsHere });
   }, 
 
 };
