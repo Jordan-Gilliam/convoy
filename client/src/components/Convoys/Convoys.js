@@ -25,7 +25,6 @@ class Convoys extends Component {
             convoyName: '',
             newEmails: [],
             username: '',
-            sgEmail: {},
             currentConvoy: '',
             emailsHere: [],
         };
@@ -94,9 +93,7 @@ class Convoys extends Component {
           });
           console.log('emails', emails);
           this.setState({ emails, email: '' });
-            let emailsHere = emails.map(email => email.label);
-            console.log('emailsHere', emailsHere);
-            this.setState({ emailsHere });
+     
 
       }
     }
