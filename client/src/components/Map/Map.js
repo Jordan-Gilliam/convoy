@@ -14,7 +14,7 @@ class Map extends Component {
     }
      componentDidMount() {
         console.log('Map.js props', this.props);
-        console.log(" user: ", this.props.user.uid, " convoy: ", this.props.convoy);
+        console.log(" user: ", this.props.user.uid, " convoy: ", this.props.match.params.ID);
         var instance = window.M.Modal.init(this.modal);
         console.log(" user: ", this.props.user.uid, " convoy: ", this.props.convoy);
         console.log('Map.js state', this.state);
@@ -38,6 +38,7 @@ class Map extends Component {
                     <GeolocationContainer>
                         <MapContainer
                         uid={this.props.user.uid}
+                        convoy={this.props.match.params.ID}
                         />
                     </GeolocationContainer>
                     
