@@ -69,7 +69,7 @@ class App extends Component {
           <Route path='/signup/:id' render = {props=> <SignUp user={user} {...props} />} />
           <Route path='/signout' render={() => this.signOut()} />
           <PrivateRoute path='/convoys' component={Convoys} user={user} />
-          <PrivateRoute path='/map' component={Map} user={user} />
+          <PrivateRoute path='/map/:ID' component={Map} user={user} />
           {/*<Route path='/convoys' component={Convoys} />*/}
           <Route render={() => <p>Not Found</p>} />
         </Switch>

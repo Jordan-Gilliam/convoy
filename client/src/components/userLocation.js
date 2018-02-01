@@ -1,11 +1,17 @@
 import React from "react";
 import Geolocation from "react-geolocation";
 
-export default () => {
-
-  return (
+ class UpdateMap extends React.Component {
+   constructor(props) {
+     super(props);
+   }
+   getCurrentPosition = () => {
+     console.log("getCurrentPosition fired");
+   }
+   render() {
+    return (
     <Geolocation
-      onSuccess={console.log}
+      onSuccess={console.log()}
       render={({
         fetchingPosition,
         position: { coords: { latitude, longitude } = {} } = {},
@@ -13,7 +19,7 @@ export default () => {
         getCurrentPosition
       }) =>
         <div>
-          <button onClick={getCurrentPosition}>Get Position</button>
+          <button onClick = {() => this.getCurrentPosition()}>Get Position</button>
           {error &&
             <div>
               {error.message}
@@ -25,4 +31,7 @@ export default () => {
         </div>}
     />
   );
-};
+   }
+}
+
+export default UpdateMap;
