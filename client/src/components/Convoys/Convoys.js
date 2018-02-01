@@ -101,8 +101,8 @@ class Convoys extends Component {
     
     startSendGrid = () => {
       console.log("start send grid");
-      API.sendEmail(this.state.email)
-        .then(res => console.log(res))
+      API.postEmail()
+        .then(res => this.setState({ sgEmail : res.data }))
         .catch(err => console.log(err));
     };
   
