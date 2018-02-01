@@ -46,14 +46,14 @@ export class MapContainer extends React.Component {
         // console.log("position?: " + this.props.currentPosition || "not yet");  
     }
     
-    handlePosition = (uid) => {
+    handlePosition = (uid, convoy) => {
         window.navigator.geolocation.getCurrentPosition(function(position) {
             console.log("uid?: ");
             console.log("latitude: ", position.coords.latitude, " longitude: ", position.coords.longitude);
             // this.setState({lat: position.coords.latitude});
             // this.setState({lng: position.coords.longitude});
             //sends lat and lng to current user at current convoy.  Need to get current user and convoy to do this dynamically
-            db.ref(`/convoys/-L47M0eLT4rSKNkuFXAR/members/${uid}`).set({
+            db.ref(`/convoys/${convoy}/members/${uid}`).set({
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             });
@@ -66,7 +66,7 @@ export class MapContainer extends React.Component {
     render() {
         const { currentPosition } = this.props;
         // console.log("position!: ", currentPosition || "not yet");
-        this.handlePosition(this.props.uid);
+        this.handlePosition(this.props.uid, this.props.convoy);
 
  
 
