@@ -6,20 +6,28 @@ class GeolocationContainer extends Component {
   };
 
   updatePosition = (currentPosition) => {
+    console.log("updating position: " + JSON.stringify(currentPosition));
     this.setState({ currentPosition });
+  }
+  
+  handleError = (error) => {
+    console.error("GeolocationContainer Error: " + JSON.stringify(error));
   }
 
   componentDidMount() {
-    if (!navigator.geolocation) {
+    if (!window.navigator.geolocation) {
       return alert("Geolocation is not supported by this browser.");
     }
-
-    this.watchId = navigator.geolocation.watchPosition(this.updatePosition);
+    
+    this.watchId = window.navigator.geolocation.watchPosition(
+      this.updatePosition,
+      this.handleError
+    );
   }
 
   componentWillUnmount() {
-    if (!navigator.geolocation || !this.watchId) return;
-    navigator.geolocation.clearWatch(this.watchId);
+    if (!window.navigator.geolocation || !this.watchId) return;
+    window.navigator.geolocation.clearWatch(this.watchId);
   }
 
   render() {
@@ -27,7 +35,7 @@ class GeolocationContainer extends Component {
 
     var childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { currentPosition: this.state.currentPosition }));
-
+        
     return <div>{childrenWithProps}</div>;
   }
 }
