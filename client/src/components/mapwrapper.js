@@ -7,22 +7,18 @@ import { firebaseApp, db } from '../firebase';
 import firebase from 'firebase';
 
 //...
-const user = {name: "You", lat: 37.779519, lng: -122.405640}
-
+let user = {name: "You", lat: 37.779519, lng: -122.405640}
+let latt = 100;
+let longg = "";
     
 export class MapContainer extends React.Component {
-    state = {
-        lat: "",
-        lng: "",
-        uid: ""
-    }
     constructor(props) {
         super(props)
     
     this.state = {
         users,
-        lat: 0,
-        lng: 0,
+        lat: latt,
+        lng: longg,
     }
     }
 
@@ -46,27 +42,38 @@ export class MapContainer extends React.Component {
         // console.log("position?: " + this.props.currentPosition || "not yet");  
     }
     
-    handlePosition = (uid) => {
+    handlePosition = (uid, convoy) => {
         window.navigator.geolocation.getCurrentPosition(function(position) {
             console.log("uid?: ");
             console.log("latitude: ", position.coords.latitude, " longitude: ", position.coords.longitude);
+            latt = position.coords.latitude;
+            longg = position.coords.longitude;
             // this.setState({lat: position.coords.latitude});
             // this.setState({lng: position.coords.longitude});
             //sends lat and lng to current user at current convoy.  Need to get current user and convoy to do this dynamically
-            db.ref(`/convoys/-L47M0eLT4rSKNkuFXAR/members/${uid}`).set({
+            db.ref(`/convoys/${convoy}/members/${uid}`).set({
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             });
             //next, pull all members at same path and push {name: "name", lat: "lat", lng: "lng"} to array
             
-
+            // db.ref(`convoys/${convoy}/members`).on("value", (snapshot) => {
+            // const members = [];
+            // snapshot.forEach((data) => {
+            // console.log("data.key: " + data.key + " data.value: " + data.value);
+            // });
+            // console.log("snapshot: ", snapshot);
+            // console.log("JSON.stringify(snapshot): ", JSON.stringify(snapshot));
+        // });
         }); 
     }
     
     render() {
         const { currentPosition } = this.props;
         // console.log("position!: ", currentPosition || "not yet");
-        this.handlePosition(this.props.uid);
+        this.handlePosition(this.props.uid, this.props.convoy);
+        // this.setState({lat: this.position.coords.latitude});
+        // this.setState({lng: this.position.coords.longitude});
 
  
 
