@@ -18,10 +18,7 @@ class Convoys extends Component {
         super(props);
         this.state = {
             convoys: [],
-
-
             convoysId: [],
-
             email: '',
             emails: [],
             icons: null,
@@ -30,12 +27,7 @@ class Convoys extends Component {
             username: '',
             sgEmail: {},
             currentConvoy: '',
-            object: [],
-            labels: [],
-            allEmails: [],
             emailsHere: [],
-
-            
         };
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -65,6 +57,7 @@ class Convoys extends Component {
                 convoysId.push(data.key);
                 //updates the convoy array in this.state to the convoy array from this function
                 this.setState({convoys});
+                console.log(convoys);
                 this.setState({convoysId});
                 })
 
@@ -72,7 +65,6 @@ class Convoys extends Component {
             // console.log("snapshot: ", snapshot);
             // console.log("JSON.stringify(snapshot): ", JSON.stringify(snapshot));
         });
-
     }
     
     
@@ -94,18 +86,14 @@ class Convoys extends Component {
     
     handleonKeyPress = (event) => {
       if (event.key === 'Enter') {
-          alert("hello");
           let emails = [...this.state.emails];
-          let emailsHere = [];
           emails.push({
               id: emails.length,
               label: this.state.email,
               convoyName: this.state.convoyName,
           });
-          emailsHere.push({email: this.state.email});
-          this.setState({emailsHere});
+          console.log('emails', emails);
           this.setState({ emails, email: '' });
-              console.log(this.state.emailsHere);
 
       }
     }
@@ -127,14 +115,24 @@ class Convoys extends Component {
                 label: this.state.email,
                 convoyName: this.state.convoyName,
             });
-            console.log(emails);
+            console.log('emails', emails);
 
-            this.setState({ emails});
-            
-            var emailsHere = [];
-            emailsHere.push({email: this.state.email});
-            this.setState({emailsHere});
+            this.setState({ emails });
+
         }
+   
+        // forEach, map, reduce
+        /* Map
+            1. Loops through entire array
+            2. Does something to each element of the array
+            3. Returns a modified array of same length as input
+                [{ id: 0, name: 'bob' }, { id: 1, name: 'jen' }]
+                ['bob', 'jen']
+        */
+        let emailsHere = emails.map(email => email.label);
+        console.log('emailsHere', emailsHere);
+        this.setState({ emailsHere });
+        
         this.startSendGrid();
         const {user} = this.props;
         // A convoy entry.
@@ -188,7 +186,19 @@ class Convoys extends Component {
                     {this.state.convoys.map((name, id) => {
                         const ID = this.state.convoysId[id];
                         return (
-                                <Link to={{pathname: `/map/${ID}`}}  key={ID} id={ID}>
+                                <Link
+                                    to={{
+                                        pathname: `/map/${ID}`,
+                                        state: {
+                                            convoyName: name,
+                                        },
+                                         //search: '?sort=name',
+                                    }}
+                                    //to={{pathname: `/map/${ID}?convoy=${name}`}}
+                                    key={ID}
+                                    id={ID}
+                                    state={{convoyName: name}}
+                                >
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
                                             // console.log('icon: ' +  oneIcon);
