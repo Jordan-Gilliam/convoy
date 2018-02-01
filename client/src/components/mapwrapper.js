@@ -13,11 +13,17 @@ const user = {name: "You", lat: 37.779519, lng: -122.405640}
 export class MapContainer extends React.Component {
     constructor(props) {
         super(props)
+    
+    this.state = {
+        users,
+        lat: 0,
+        lng: 0
+    }
     }
     state = {
-        users,
+        lat: "",
+        lng: ""
     }
-    
     MapUpdater = () => {
          //get current lat, lng
         //  console.log("latitude: ", this.state.latitude, " longitude: ", this.state.longitude) 
@@ -32,13 +38,23 @@ export class MapContainer extends React.Component {
        } 
     
     
-    // componentDidMount() {
-        
-    // }
+    componentDidMount() {
+        console.log("position?: " + this.props.currentPosition || "not yet");  
+    }
+    
+    handlePosition = () => {
+        window.navigator.geolocation.getCurrentPosition(function(position) {
+            console.log("latitude: ", position.coords.latitude, " longitude: ", position.coords.longitude);
+
+        }); 
+    }
     
     render() {
         const { currentPosition } = this.props;
-        console.log(currentPosition);
+        console.log("position!: ", currentPosition || "not yet");
+        this.handlePosition();
+
+ 
 
     return (
       <Map google={this.props.google}

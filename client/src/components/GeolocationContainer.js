@@ -6,12 +6,12 @@ class GeolocationContainer extends Component {
   };
 
   updatePosition = (currentPosition) => {
-    console.log("updating position: " + JSON.stringify(currentPosition));
+    console.log("updating position: " + currentPosition);
     this.setState({ currentPosition });
   }
   
   handleError = (error) => {
-    console.error("GeolocationContainer Error: " + JSON.stringify(error));
+    console.error(error);
   }
 
   componentDidMount() {
