@@ -25,7 +25,6 @@ class Convoys extends Component {
             convoyName: '',
             newEmails: [],
             username: '',
-            sgEmail: {},
             currentConvoy: '',
             emailsHere: [],
         };
@@ -107,8 +106,8 @@ class Convoys extends Component {
     
     startSendGrid = () => {
       console.log("start send grid");
-      API.postEmail()
-        .then(res => this.setState({ sgEmail : res.data }))
+      API.sendEmail(this.state.emailsHere)
+        .then(res => console.log(res))
         .catch(err => console.log(err));
     };
   
