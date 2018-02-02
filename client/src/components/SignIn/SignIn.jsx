@@ -22,6 +22,7 @@ class SignIn extends Component {
                 console.log("firebase signIn successful");
                 console.log('fb props', this.props);
                 // if there is a convoy id, add it to this user
+
                     let path = this.props.location.pathname;
                     let convoyId = path.substr(-20, 20); 
                     let userId = this.props.user.uid;
@@ -31,6 +32,7 @@ class SignIn extends Component {
                         db.ref(`profiles/${userId}/convoys/${convoyId}`).push(true);
                         db.ref(`convoys/${convoyId}/members/${userId}`).push(true);
                     }
+
             })
             .catch(error => {
                 console.log('error', error);

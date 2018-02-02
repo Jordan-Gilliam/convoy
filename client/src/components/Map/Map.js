@@ -36,7 +36,8 @@ class Map extends Component {
                 </nav>
             
                 <div className='map'>
-                    <GeolocationContainer>
+                    <GeolocationContainer
+                    email={this.props.user.email}>
                         <MapContainer
                         uid={this.props.user.uid}
                         convoy={this.props.match.params.ID}

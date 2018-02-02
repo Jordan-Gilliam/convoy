@@ -19,6 +19,7 @@ class Convoys extends Component {
         this.state = {
             convoys: [],
             convoysId: [],
+            convoyId: "",
             email: '',
             emails: [],
             icons: null,
