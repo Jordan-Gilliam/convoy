@@ -6,8 +6,9 @@ export default {
   //   return axios.get("/api/emails", convoyData);
   // },
   
-  postEmail: function(emailsHere) {
-    // console.log('running here', emailsHere);
+  postEmail: function(emailsHere, convoysId) {
+
+    console.log('running here', emailsHere);
     return axios.post("/api/emails", { to: emailsHere })
     .catch(function(err) {
       if (err.response) {
@@ -20,7 +21,5 @@ export default {
   
    
 };
-
-
 
 
