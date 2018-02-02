@@ -49,3 +49,27 @@ p {
     background-repeat: no-repeat;
 
 }
+
+
+@media only screen and (min-width: 768px) {
+    
+    .bodyBackground {
+    background-image: url("/convoywider.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-top: -15px;
+
+    }
+    
+    #about {
+        margin-top: 40%;
+    }
+    
+    #loginButton {
+        width: 50%;
+        margin: auto;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+    
+}
