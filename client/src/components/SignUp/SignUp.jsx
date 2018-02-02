@@ -18,7 +18,7 @@ class SignUp extends Component {
     //createUser requires createUser, handleCurrentUser and is called on signup
     
     //function that should be called right after signup to create new profile
-    profileId = (user) => {
+    profileId = (user, param) => {
         console.log("profileId props: "+ JSON.stringify(user, null, 4));
         db.ref(`/profiles/${user.uid}`).set({
             convoys: false,
@@ -27,8 +27,8 @@ class SignUp extends Component {
         });
         console.log(this.props.location);
         //will check for params on route, if exists, connects profile and convoy
-        // if (params.id) {
-            // console.log("params");
+        // if (params) {
+            // console.log("param");
         //         db.ref(`profiles/${user.uid}/convoys/${params.id}`).push(true);
         //         db.ref(`convoys/${params.id}/members/${user.uid}`).push(true);
     

@@ -29,9 +29,14 @@ class GeolocationContainer extends Component {
       return alert("Geolocation is not supported by this browser.");
     }
     
+    const options = {
+      enableHighAccuracy: true
+    };
+    
     this.watchId = window.navigator.geolocation.watchPosition(
       this.updatePosition,
-      this.handleError
+      this.handleError,
+      options
     );
   }
 
