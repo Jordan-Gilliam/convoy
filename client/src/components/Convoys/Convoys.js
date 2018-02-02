@@ -35,6 +35,7 @@ class Convoys extends Component {
         console.log("this.props.user.uid: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
         // var icon = icons[Math.floor(Math.random()*icons.length)];
+
         
       
             this.setState({icons});
@@ -136,6 +137,14 @@ class Convoys extends Component {
             uid: this.props.user.uid,
             convoyID: this.state.convoyID
         };
+        console.log(convoyData);
+        console.log(this.state.convoys);
+        
+        console.log(convoyData.name);
+        let convoysHere = [];
+        convoysHere.push(convoyData.name);
+        console.log(convoysHere);
+        
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
         // Write the new convoy's data simultaneously in the convoys list and the profiles list.
