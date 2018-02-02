@@ -24,10 +24,23 @@ Making group travel easy. This app allows users to create travel groups and trac
 <br>
 
 # UI
+Using a combination of CSS, Materialize, and MaterialUI,  Convoy boasts a user-friendly, responsive design. Convoy's UI focuses on simplicity and usability, using a mobile first SPA. The custom graphics are implemented with media-queries, allowing Convoy to look great on any device. Red is a symbol of energy, strength, and determination, which are three characteristics most people on an adventure experience. Convoy harnesses this by using subtle hints of red throughout the app. 
+
+#### Mobile 
+![ConvoyImage Small](./client/public/convoyHere.png)
+
+#### Min-Width @768px
+![ConvoyImage Wide](./client/public/convoywider.png)
 
 <br>
 
 # Firebase
+
+User authentication and data storage runs through Firebase. When a user creates an account, that account is verified and authenticated through Firebase Authentication. This will automatically create a table called 'profiles' in the database that houses all user information (with the exception of password). 
+
+Users have the option to create an unlimited number of convoys, which will store in the 'convoys' table in the database. Using queries, each table is updated accordingly to link the user profile with his/her convoys and the convoy with the user profiles. 
+
+Firebase database information is linked to the UI, allowing user pages to update seamlessly without a page reload. 
 
 
 
