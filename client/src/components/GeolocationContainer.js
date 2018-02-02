@@ -15,7 +15,8 @@ class GeolocationContainer extends Component {
     // update this user's location in firebase
     db.ref(`/convoys/${this.props.children.props.convoy}/members/${this.props.children.props.uid}`).set({
         lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lng: position.coords.longitude,
+        name: this.props.email
     });
   }
   

@@ -38,7 +38,8 @@ class SignUp extends Component {
         if (ID) {
             var updates = {};
             updates[`/profiles/${user.uid}/convoys/${ID}`]=true;
-            updates[`/convoys/${ID}/members/${user.uid}`]=true;
+            // updates[`/convoys/${ID}/members/${user.uid}`]=true;
+            updates[`/convoys/${ID}/members/${user.uid}/name`]=this.state.username;
             return db.ref().update(updates);
                 
                  

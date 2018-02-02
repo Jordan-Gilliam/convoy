@@ -139,7 +139,7 @@ export class MapContainer extends React.Component {
                 {this.state.members.map(member => (
                     <Marker
                         key={member.id}
-                        title={user.name}
+                        title={member.name}
                         name={user.name}
                         position={{lat: member.lat, lng: member.lng}}
                     />
