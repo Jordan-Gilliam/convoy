@@ -26,6 +26,7 @@ class Map extends Component {
                 <nav>
                     <div className="nav-wrapper">
                         <a href="#" className="brand-logo center">{this.props.location.state.convoyName}</a>
+                        TODO: Convoy Name
                         <ul id="nav-mobile" className="left">
                             <li>
                                 <NavLink to='/convoys'><i className="material-icons">arrow_back</i></NavLink>
@@ -46,12 +47,16 @@ class Map extends Component {
                   
                     <div id="modal2" className="modal bottom-sheet" ref={ (modal) => this.modal = modal }>
                         <div className="modal-content">
-                            <h4>Modal Header</h4>
-                            <button onClick = {() => this.MapUpdater}>Update Map</button>
+                            <h4>{this.props.location.state.convoyName}</h4>
+                            <h5>{this.props.uid}</h5>
+                            <p>
+                                
+                                    {this.state.latitude}
+                                
+                            </p>
+                            {/*<button onClick = {() => this.MapUpdater}>Update Map</button>*/}
                         </div>
-                        <div className="modal-footer">
-                            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

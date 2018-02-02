@@ -13,51 +13,24 @@ class SignIn extends Component {
             message: ''
         }
     };
-    
-    convoyHelper = (user, param) => {
-        console.log("profileId props: "+ JSON.stringify(user, null, 4));
-        db.ref(`/profiles/${user.uid}`).set({
-            convoys: false,
-            email: this.state.email,
-            username: this.state.username
-        });
-        console.log(this.props.location);
-        
-                console.log(this.props.location.pathname);
-                let path = this.props.location.pathname;
-                let convoyId = path.substr(-20, 20); 
-                let userId = this.props.user.uid;
-                
-            if (convoyId) {
-                        console.log("queries being fired");
-                        var updates = {};
-                        updates[`/profiles/${userId}/convoys/${convoyId}`]=true;
-                        updates[`/convoys/${convoyId}/members/${userId}`]=true;
-                        return db.ref().update(updates);
-         }
-    }
 
-    signIn = () => {
+    signIn() {
         console.log('this.state', this.state);
         const { email, password } = this.state;
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
-            .then((user) => {
-                this.convoyHelper(user);
+            .then(() => {
                 console.log("firebase signIn successful");
                 console.log('fb props', this.props);
                 // if there is a convoy id, add it to this user
+                    let path = this.props.location.pathname;
+                    let convoyId = path.substr(-20, 20); 
+                    let userId = this.props.user.uid;
                     
-
                     
-                    // if (convoyId) {
-                    //     console.log("queries being fired");
-                    //     var updates = {};
-                    //     updates[`/profiles/${userId}/convoys/${convoyId}`]=true;
-                    //     updates[`/convoys/${convoyId}/members/${userId}`]=true;
-                    //     return db.ref().update(updates);
-                    //     // db.ref(`profiles/${userId}/convoys/${convoyId}`).set(true);
-                    //     // db.ref(`convoys/${convoyId}/members/${userId}`).set(true);
-                    // }
+                    if (convoyId) {
+                        db.ref(`profiles/${userId}/convoys/${convoyId}`).push(true);
+                        db.ref(`convoys/${convoyId}/members/${userId}`).push(true);
+                    }
             })
             .catch(error => {
                 console.log('error', error);
@@ -67,12 +40,6 @@ class SignIn extends Component {
     
     componentDidMount() {
         document.body.className = 'bodyBackground';
-        let path = this.props.location.pathname;
-        let convoyId = path.substr(-20, 20); 
-        console.log(convoyId);
-        console.log("this.props: ", this.props);
- 
-          
     }
   
     componentWillUnmount() {
@@ -83,7 +50,6 @@ class SignIn extends Component {
         console.log('SignIn props', this.props);
         const { from } = this.props.location.state || { from: { pathname: '/convoys/' + this.props.location.pathname.substr(-20, 20) } }
         const { user } = this.props;
-        
     
         if (user) {
             console.log("redirecting to " + JSON.stringify(from));
