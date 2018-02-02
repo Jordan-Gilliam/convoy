@@ -28,8 +28,8 @@ class SignIn extends Component {
                     
                     
                     if (convoyId) {
-                        db.ref(`profiles/${userId}/convoys/${convoyId}`).push(true);
-                        db.ref(`convoys/${convoyId}/members/${userId}`).push(true);
+                        db.ref(`profiles/${userId}/convoys/${convoyId}`).set(true);
+                        db.ref(`convoys/${convoyId}/members/${userId}`).set(true);
                     }
             })
             .catch(error => {
