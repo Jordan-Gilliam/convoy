@@ -9,12 +9,19 @@ Making group travel easy. This app allows users to create travel groups and trac
  <a href="https://www.heroku.com/">Heroku</a> 
 
 
-## User Authorization
+## User Authentication
+[![https://gyazo.com/425c7acb6d28d47fca17ba5ccb10963d](https://i.gyazo.com/425c7acb6d28d47fca17ba5ccb10963d.png)](https://gyazo.com/425c7acb6d28d47fca17ba5ccb10963d)
+
+<br>
+<br>
+
+Firebase + React:
+Our Auth is wicked smaht, it uses your browser history to remember whether or not you are logged in. 
+<br>
+
 <p style="text-align:center"><img src ="https://i.gyazo.com/7e9d482db7ed7ea06526f8f315a29e09.gif" />
 </p>
 <br>
-Firebase + React:
-Our Auth is wicked smaht, if youve signed in already it will remember.
 
 ## UI
 
