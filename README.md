@@ -38,9 +38,8 @@ Making group travel easy. This app allows users to create travel groups and trac
 When users create a travel group, SendGrid will send an invitation email to all members of the group, inviting them to join Convoy. Check out our email template below...
 
 
-TEMPLATE
+![SendGrid Email Template](./client/public/ConvoyInvitationEmail.png)
 
-...
 
 When a user clicks the 'Accept Invitation' button, they will be redirected to the /signup page on Convoy. This will associate a convoyID with each user, allowing the travel group to populate as a card on the /convoys page, and the member names to populate the card.
 
