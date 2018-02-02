@@ -36,8 +36,10 @@ class SignUp extends Component {
                 console.log(ID);
         
         if (ID) {
-                db.ref(`profiles/${user.uid}/convoys/${ID}`).push(true);
-                db.ref(`convoys/${ID}/members/${user.uid}`).push(true);
+            var updates = {};
+            updates[`/profiles/${user.uid}/convoys/${ID}`]=true;
+            updates[`/convoys/${ID}/members/${user.uid}`]=true;
+            return db.ref().update(updates);
                 
                  
         }
