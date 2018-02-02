@@ -104,9 +104,8 @@ class Convoys extends Component {
     }
 
     startSendGrid = (emailsHere) => {
-        console.log('emailsHere', emailsHere);
         console.log("start send grid");
-        API.sendEmail(emailsHere)
+        API.postEmail(emailsHere)
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
