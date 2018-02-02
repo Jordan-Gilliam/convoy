@@ -2,7 +2,7 @@
   "name": "yarn",
   "version": "1.0.0",
   "main": "server.js",
-  "homepage": "https://jordan-gilliam.github.io/convoy/",
+  "homepage": "http://jordan-gilliam.github.io/convoy",
   "repository": "git@github.com:Jordan-Gilliam/convoy.git",
   "author": "",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "client": "node scripts/start-client.js",
     "server": "node server.js",
-    "build": "node convoy/scripts/build.js",
+    "build": "node scripts/build.js",
     "installDeps": "yarn && cd client && yarn",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
