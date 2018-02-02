@@ -3,10 +3,10 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // Defining methods for the sendGridController
 module.exports = {
 
-  sendEmail: function(req, res, email, convoyID) {
+  sendEmail: function(req, res, email) {
     // // SendGrid OPTION 2 - send multiple individual emails to multiple recipients*****************************************************************
-    convoyID = req.body.convoy;
-    console.log('convoyID: ' + convoyID);
+    // convoyID = req.body.convoy;
+    // console.log('convoyID: ' + convoyID);
     email = req.body.to;
     console.log(email);
     // var emailStr = email.join();
