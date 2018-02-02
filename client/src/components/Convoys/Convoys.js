@@ -153,6 +153,8 @@ class Convoys extends Component {
         // console.log("setting name in convoy record");
         //add the current user UID to the members object
         updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+        
+        // updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid + '/name'] = this.state.username;
 
         console.log("associating UID on convoy");
         //add the convoykey to the current user's profile

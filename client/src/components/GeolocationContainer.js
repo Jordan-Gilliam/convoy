@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
-
+import { firebaseApp, db } from '../firebase';
 class GeolocationContainer extends Component {
   state = {
-    currentPosition: null
+    latitude: null,
+    longitude: null
   };
 
-  updatePosition = (currentPosition) => {
-    console.log("updating position: " + currentPosition);
-    this.setState({ currentPosition });
+  updatePosition = (position) => {
+    this.setState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    });
+    
+    // update this user's location in firebase
+    db.ref(`/convoys/${this.props.children.props.convoy}/members/${this.props.children.props.uid}`).set({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    });
   }
   
   handleError = (error) => {
     console.error(error);
   }
 
+  //if geolocation is not available on browser
   componentDidMount() {
     if (!window.navigator.geolocation) {
       return alert("Geolocation is not supported by this browser.");
@@ -34,7 +44,10 @@ class GeolocationContainer extends Component {
     const { children } = this.props;
 
     var childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, { currentPosition: this.state.currentPosition }));
+      React.cloneElement(child, {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude
+      }));
         
     return <div>{childrenWithProps}</div>;
   }
