@@ -17,7 +17,7 @@ class SignUp extends Component {
     }
     //createUser requires createUser, handleCurrentUser and is called on signup
     
-    
+
     //function that should be called right after signup to create new profile
     profileId = (user) => {
         console.log("profileId props: "+ JSON.stringify(user, null, 4));
@@ -27,10 +27,18 @@ class SignUp extends Component {
             username: this.state.username
         });
         //will check for params on route, if exists, connects profile and convoy
-        // if (params.id) {
-            // console.log("params");
-        //         db.ref(`profiles/${user.uid}/convoys/${params.id}`).push(true);
-        //         db.ref(`convoys/${params.id}/members/${user.uid}`).push(true);
+        
+                console.log(this.props.location.pathname);
+                let path = this.props.location.pathname
+                let ID = path.substr(-20, 20); 
+                console.log(ID);
+        
+        if (ID) {
+                db.ref(`profiles/${user.uid}/convoys/${ID}`).push(true);
+                db.ref(`convoys/${ID}/members/${user.uid}`).push(true);
+                
+                 
+        }
     
     }
     
@@ -53,6 +61,7 @@ class SignUp extends Component {
     
     componentDidMount() {
         document.body.className = 'bodyBackground';
+
     }
   
     componentWillUnmount() {
@@ -117,7 +126,7 @@ class SignUp extends Component {
                                         </button>
                                     </div>
                                     <div>{this.state.error.message}</div>
-                                    <div><Link to={'/signin'}>Already a user? Sign in instead</Link></div>
+                                    <div><Link to={'/signin/' + this.props.location.pathname.substr(-20, 20)}>Already a user? Sign in instead</Link></div>
                                 </div>
                                 
                                 
