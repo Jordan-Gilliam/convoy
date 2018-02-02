@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { firebaseApp, db, defaultAuth } from '../../firebase';
+import API from "../../utils/API";
 
 class SignUp extends Component {
     constructor(props) {
@@ -31,8 +32,14 @@ class SignUp extends Component {
             // console.log("param");
         //         db.ref(`profiles/${user.uid}/convoys/${params.id}`).push(true);
         //         db.ref(`convoys/${params.id}/members/${user.uid}`).push(true);
+    };
     
-    }
+    //  linkConvoy = (convoy) => {
+    //         console.log("link convoys to user");
+    //         API.linkUserToConvoy(convoy)
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // }
     
     signUp = () => {
         // console.log('this.state', this.state);
