@@ -102,19 +102,19 @@ class Convoys extends Component {
         }
       
     }
-
+    
     startSendGrid = (emailsHere) => {
-        console.log('emailsHere', emailsHere);
         console.log("start send grid");
-        API.sendEmail(emailsHere)
+        API.postEmail(emailsHere)
             .then(res => console.log(res))
             .catch(err => console.log(err));
+        
     };
-    
     
     saveAndUpdate = (uid, name, members) => {
         // if email input field is not empty (!this.state.email), push it to emails array
         let emails = this.state.emails;
+        
         if (this.state.email) {
             console.log('here');
             emails = this.createEmail();
@@ -126,7 +126,7 @@ class Convoys extends Component {
         this.setState({ emailsHere });
         
         
-        this.startSendGrid(emailsHere);
+        this.startSendGrid(emailsHere, this.state.convoysKey);
         const {user} = this.props;
         // A convoy entry.
 
@@ -146,6 +146,8 @@ class Convoys extends Component {
         // console.log("setting name in convoy record");
         //add the current user UID to the members object
         updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid] = true;
+        
+        // updates['/convoys/' + newConvoyKey + '/members/' + convoyData.uid + '/name'] = this.state.username;
 
         console.log("associating UID on convoy");
         //add the convoykey to the current user's profile
@@ -155,7 +157,11 @@ class Convoys extends Component {
         console.log('emailsHere' + this.state.emailsHere);
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
         
+    
     };
+    
+    
+    
     
 
     render() {

@@ -25,7 +25,7 @@ class Map extends Component {
             <div>
                 <nav>
                     <div className="nav-wrapper">
-                        {/*<a href="#" className="brand-logo center">{this.props.location.state.convoyName}</a>*/}
+                        <a href="#" className="brand-logo center">{this.props.location.state.convoyName}</a>
                         TODO: Convoy Name
                         <ul id="nav-mobile" className="left">
                             <li>

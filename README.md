@@ -3,18 +3,25 @@
 </p>
 
 # convoy
-Making group travel easy
+Making group travel easy. This app allows users to create travel groups and track the location of members in that group. Use Convoy on your next roadtrip to avoid texting and calling your friends to see where they are!
 ## Deployment
 
  <a href="https://www.heroku.com/">Heroku</a> 
 
 
-## User Authorization
+## User Authentication
+[![https://gyazo.com/425c7acb6d28d47fca17ba5ccb10963d](https://i.gyazo.com/425c7acb6d28d47fca17ba5ccb10963d.png)](https://gyazo.com/425c7acb6d28d47fca17ba5ccb10963d)
+
+<br>
+<br>
+
+Firebase + React:
+Our Auth is wicked smaht, it uses your browser history to remember whether or not you are logged in. 
+<br>
+
 <p style="text-align:center"><img src ="https://i.gyazo.com/7e9d482db7ed7ea06526f8f315a29e09.gif" />
 </p>
 <br>
-Firebase + React:
-Our Auth is wicked smaht, if youve signed in already it will remember.
 
 ## UI
 
@@ -22,9 +29,20 @@ Our Auth is wicked smaht, if youve signed in already it will remember.
 
 ## Firebase
 
+
+
 <br>
 
 ## SendGrid
+
+When users create a travel group, SendGrid will send an invitation email to all members of the group, inviting them to join Convoy. Check out our email template below...
+
+
+TEMPLATE
+
+...
+
+When a user clicks the 'Accept Invitation' button, they will be redirected to the /signup page on Convoy. This will associate a convoyID with each user, allowing the travel group to populate as a card on the /convoys page, and the member names to populate the card.
 
 <br>
 

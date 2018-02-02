@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { firebaseApp, db, defaultAuth } from '../../firebase';
+import API from "../../utils/API";
 
 class SignUp extends Component {
     constructor(props) {
@@ -19,13 +20,14 @@ class SignUp extends Component {
     
 
     //function that should be called right after signup to create new profile
-    profileId = (user) => {
+    profileId = (user, param) => {
         console.log("profileId props: "+ JSON.stringify(user, null, 4));
         db.ref(`/profiles/${user.uid}`).set({
             convoys: false,
             email: this.state.email,
             username: this.state.username
         });
+        console.log(this.props.location);
         //will check for params on route, if exists, connects profile and convoy
         
                 console.log(this.props.location.pathname);
@@ -39,8 +41,14 @@ class SignUp extends Component {
                 
                  
         }
-    
     }
+    
+    //  linkConvoy = (convoy) => {
+    //         console.log("link convoys to user");
+    //         API.linkUserToConvoy(convoy)
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // }
     
     signUp = () => {
         // console.log('this.state', this.state);
