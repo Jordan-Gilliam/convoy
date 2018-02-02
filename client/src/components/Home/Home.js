@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 class Home extends Component {
@@ -33,8 +34,8 @@ class Home extends Component {
                             
                             <div className='row' id='loginButton'>
                                 <div className='col s8 offset-s2'>
-                                    <a className="waves-effect waves-light btn red color" a href='./signin'>Login</a>
-                                    <a className="waves-effect waves-light btn red color" a href='./signup'>Sign Up</a>
+                                    <Link className="waves-effect waves-light btn red color" to='/signin'>Login</Link>
+                                    <Link className="waves-effect waves-light btn red color" to='/signup'>Sign Up</Link>
                                 </div>
                             </div>
                             

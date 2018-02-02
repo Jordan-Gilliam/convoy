@@ -8,6 +8,7 @@ import firebase from 'firebase';
 
 //...
 let user = { name: "You", lat: 37.779519, lng: -122.405640 }
+
 let latt = 100;
 let longg = "";
 

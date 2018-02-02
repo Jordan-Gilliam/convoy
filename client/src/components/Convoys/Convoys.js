@@ -25,7 +25,6 @@ class Convoys extends Component {
             convoyName: '',
             newEmails: [],
             username: '',
-            sgEmail: {},
             currentConvoy: '',
             emailsHere: [],
         };
@@ -57,7 +56,7 @@ class Convoys extends Component {
                 convoysId.push(data.key);
                 //updates the convoy array in this.state to the convoy array from this function
                 this.setState({convoys});
-                console.log(convoys);
+                // console.log(convoys);
                 this.setState({convoysId});
                 })
 
@@ -84,56 +83,50 @@ class Convoys extends Component {
     }
     
     
+    createEmail = () => {
+        let emails = [...this.state.emails];
+        emails.push({
+            id: emails.length,
+            label: this.state.email,
+            convoyName: this.state.convoyName,
+        });
+        console.log('emails', emails);
+        this.setState({ emails, email: '' });
+        return emails;
+    }
+    
+    
     handleonKeyPress = (event) => {
-      if (event.key === 'Enter') {
-          let emails = [...this.state.emails];
-          emails.push({
-              id: emails.length,
-              label: this.state.email,
-              convoyName: this.state.convoyName,
-          });
-          console.log('emails', emails);
-          this.setState({ emails, email: '' });
-
-      }
+        if (event.key === 'Enter') {
+            this.createEmail();
+        }
+      
     }
 
-    
-    startSendGrid = () => {
-      console.log("start send grid");
-      API.sendEmail()
-        .then(res => this.setState({ sgEmail : res.data }))
-        .catch(err => console.log(err));
+    startSendGrid = (emailsHere) => {
+        console.log('emailsHere', emailsHere);
+        console.log("start send grid");
+        API.sendEmail(emailsHere)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     };
-  
+    
+    
     saveAndUpdate = (uid, name, members) => {
         // if email input field is not empty (!this.state.email), push it to emails array
+        let emails = this.state.emails;
         if (this.state.email) {
-            var emails = [...this.state.emails];
-            emails.push({
-                id: emails.length,
-                label: this.state.email,
-                convoyName: this.state.convoyName,
-            });
-            console.log('emails', emails);
-
-            this.setState({ emails });
-
+            console.log('here');
+            emails = this.createEmail();
         }
    
-        // forEach, map, reduce
-        /* Map
-            1. Loops through entire array
-            2. Does something to each element of the array
-            3. Returns a modified array of same length as input
-                [{ id: 0, name: 'bob' }, { id: 1, name: 'jen' }]
-                ['bob', 'jen']
-        */
+
         let emailsHere = emails.map(email => email.label);
         console.log('emailsHere', emailsHere);
         this.setState({ emailsHere });
         
-        this.startSendGrid();
+        
+        this.startSendGrid(emailsHere);
         const {user} = this.props;
         // A convoy entry.
 
@@ -161,11 +154,11 @@ class Convoys extends Component {
         updates['/profiles/' + convoyData.uid + '/convoys/' + newConvoyKey] = true;
         // console.log("associating convoy ID on profile");
         
-        console.log(this.state.emailsHere);
+        console.log('emailsHere' + this.state.emailsHere);
         return db.ref().update(updates).then(this.setState({ convoyName: '', email: '', emails: []}, () =>console.log("wiped state")));
         
     };
-
+    
 
     render() {
         var convoysKey = this.state.convoysKey;
@@ -209,7 +202,7 @@ class Convoys extends Component {
                                             );
                                         })}
                                         {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
-                                        <span class="title">
+                                        <span className="title">
 
                                             {name}
                                         </span>
@@ -218,7 +211,7 @@ class Convoys extends Component {
                                             <br/>
                                             Second Name
                                         </p>
-                                        <a href="#!" class="secondary-content"><i class="material-icons">chevron_right</i></a>
+                                        <a href="#!" className="secondary-content"><i className="material-icons">chevron_right</i></a>
 
                                     </li>
                                     <div className='divider'></div>
