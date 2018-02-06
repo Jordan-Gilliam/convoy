@@ -16,7 +16,7 @@ Making group travel easy. This app allows users to create travel groups and trac
 <br>
 
 ### Firebase + React:
-#### Our Auth is wicked smaht, it uses your browser history to remember whether or not you are logged in. 
+#### Our Auth is wicked smart, it uses your browser history to remember whether or not you are logged in. 
 <br>
 
 <p style="text-align:center"><img src ="https://i.gyazo.com/7e9d482db7ed7ea06526f8f315a29e09.gif" />
