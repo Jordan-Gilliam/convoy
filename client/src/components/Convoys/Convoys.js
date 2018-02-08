@@ -19,6 +19,7 @@ class Convoys extends Component {
         this.state = {
             convoys: [],
             convoysId: [],
+            convoyId: "",
             email: '',
             emails: [],
             icons: null,
@@ -35,15 +36,13 @@ class Convoys extends Component {
         console.log("this.props.user.uid: ", this.props.user.uid);
         var instance = window.M.Modal.init(this.modal);
         // var icon = icons[Math.floor(Math.random()*icons.length)];
-
         
       
             this.setState({icons});
     
         // console.log('icon ' + icon);
         // this.setState({icon});
-        // var icon = Math.floor(Math.random() * (1 + Icons.length - 1));
-        // console.log(JSON.stringify(icon));
+      
         
         //function to render convoy cards
         db.ref(`profiles/${this.props.user.uid}/convoys`).on("value", (snapshot) => {
@@ -127,7 +126,7 @@ class Convoys extends Component {
         this.setState({ emailsHere });
         
         
-        this.startSendGrid(emailsHere);
+        this.startSendGrid(emailsHere, convoysHere);
         const {user} = this.props;
         // A convoy entry.
 
@@ -137,13 +136,12 @@ class Convoys extends Component {
             uid: this.props.user.uid,
             convoyID: this.state.convoyID
         };
-        console.log(convoyData);
-        console.log(this.state.convoys);
         
         console.log(convoyData.name);
         let convoysHere = [];
         convoysHere.push(convoyData.name);
         console.log(convoysHere);
+        
         
         // Get a key for a new Convoy.
         const newConvoyKey = db.ref().child('convoys').push().key;
@@ -209,20 +207,19 @@ class Convoys extends Component {
                                 >
                                     <li className='collection-item avatar'>
                                         {this.state.icons.map((oneIcon) => {
-                                            // console.log('icon: ' +  oneIcon);
+                                            
                                             return (
                                                 <img src={oneIcon} alt='car avatar' className='circle'/>
                                             );
                                         })}
-                                        {/*<img src={icons[Math.floor(Math.random()*icons.length)]} alt="" class="circle"/>*/}
+                                      
                                         <span className="title">
 
                                             {name}
                                         </span>
                                         <p id='p'>
-                                            First Name 
                                             <br/>
-                                            Second Name
+                                        Open Convoy    
                                         </p>
                                         <a href="#!" className="secondary-content"><i className="material-icons">chevron_right</i></a>
 
