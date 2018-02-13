@@ -126,7 +126,7 @@ class Convoys extends Component {
         this.setState({ emailsHere });
         
         
-        this.startSendGrid(emailsHere, convoysHere);
+        this.startSendGrid(emailsHere);
         const {user} = this.props;
         // A convoy entry.
 
