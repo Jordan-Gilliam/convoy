@@ -1,9 +1,9 @@
 import  * as firebase from 'firebase';
 
 const config = {
-    apiKey: "AIzaSyA6xUJNab019KY3keHccZxSvovPN2G1Or4",
+    apiKey: "env.apikey",
     authDomain: "convoy-2318e.firebaseapp.com",
-    databaseURL: "https://convoy-2318e.firebaseio.com",
+    databaseURL: "env.db",
     projectId: "convoy-2318e",
     storageBucket: "",
     messagingSenderId: "1074582700670"
