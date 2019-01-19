@@ -2,11 +2,11 @@ import  * as firebase from 'firebase';
 
 const config = {
     apiKey: "env.apikey",
-    authDomain: "convoy-2318e.firebaseapp.com",
+    authDomain: "env.authDomain",
     databaseURL: "env.db",
-    projectId: "convoy-2318e",
+    projectId: "env.projectId",
     storageBucket: "",
-    messagingSenderId: "1074582700670"
+    messagingSenderId: "env.messagingSenderId"
   };
 
 export const firebaseApp = firebase.initializeApp(config);
